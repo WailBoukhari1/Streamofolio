@@ -9,38 +9,40 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
+{public function placeOrder(Request $request)
 {
-    public function placeOrder(Request $request)
-    {
-        $order = new Order();
-        $order->user_id = auth()->id();
-        $order->payment_method = $request['payment-method'];
-        $order->order_date = now();
-        $processingDays = 2;
-        $shippingDate = now()->addDays($processingDays);
-        $deliveryDate = $shippingDate->addDays(5);
+    $order = new Order();
+    $order->user_id = auth()->id();
+    $order->payment_method = $request['payment-method'];
+    $order->order_date = now();
+    $processingDays = 2;
+    $shippingDate = now()->addDays($processingDays);
+    $deliveryDate = $shippingDate->addDays(5);
 
-        $order->possible_shipping_date = $shippingDate;
-        $order->possible_delivery_date = $deliveryDate;
+    $order->possible_shipping_date = $shippingDate;
+    $order->possible_delivery_date = $deliveryDate;
+    
+    // Retrieve total after discount from the request and assign it to total_price_after_discount
+    $order->total_price_after_discount = $request->input('total_after_discount');
 
-        $order->status = 'pending';
+    $order->status = 'pending';
 
-        $order->save();
+    $order->save();
 
-        foreach ($request['order'] as $itemData) {
-            $orderItem = new OrderItem([
-                'name' => $itemData['name'],
-                'quantity' => $itemData['quantity'],
-                'price' => $itemData['price'],
-            ]);
+    foreach ($request['order'] as $itemData) {
+        $orderItem = new OrderItem([
+            'name' => $itemData['name'],
+            'quantity' => $itemData['quantity'],
+            'price' => $itemData['price'],
+        ]);
 
-            $order->items()->save($orderItem);
-        }
-
-        Session::put('order_id', $order->id);
-        Session::forget('cart');
-        return redirect()->route('thankyou')->with('success', 'Your order has been placed successfully!');
+        $order->items()->save($orderItem);
     }
+
+    Session::put('order_id', $order->id);
+    Session::forget('cart');
+    return redirect()->route('thankyou')->with('success', 'Your order has been placed successfully!');
+}
     public function thankyou () {
 
        return view('User.thankyou');
@@ -71,6 +73,22 @@ class OrderController extends Controller
 
         // Redirect back with success message
         return redirect()->back()->with('success', 'Order deleted successfully.');
+    }
+    public function update(Request $request, Order $order)
+    {
+        // Logic to update order status
+        $order->status = 'completed'; // Example: Mark as completed
+        $order->save();
+
+        return redirect()->route('orders.index')->with('success', 'Order status updated successfully.');
+    }
+
+    public function destroy(Order $order)
+    {
+        // Logic to cancel/delete the order
+        $order->delete();
+
+        return back()->with('success', 'Order cancelled successfully.');
     }
 
 }

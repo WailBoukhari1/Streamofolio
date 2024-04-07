@@ -1,25 +1,29 @@
 <x-main>
     <div class="pt-4 pb-4 lg:pt-24 xl:pt-32">
-        <div class="container">
+        <div class="container mx-auto">
             <!-- Page Title -->
             <div class="mb-7">
                 <h2
                     class="font-bold text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-gray-900 dark:text-white mb-8 uppercase">
-                    <span class="text-primary">Your</span> Orders
+                    Admin <span class="text-primary">Orders Management</span>
                 </h2>
             </div>
 
             <!-- Table -->
-            <div class="">
+            <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <!-- Table Head -->
                     <thead class="bg-gray-200 dark:bg-gray-800">
                         <tr>
-                            <!-- Header Titles -->
+                            <th
+                                class="px-6 py-3 text-left text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
+                                Order ID</th>
+                            <th
+                                class="px-6 py-3 text-left text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
+                                Customer</th>
                             <th
                                 class="px-6 py-3 text-left text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
                                 Products</th>
-
                             <th
                                 class="px-6 py-3 text-left text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
                                 Status</th>
@@ -28,14 +32,10 @@
                                 Payment Method</th>
                             <th
                                 class="px-6 py-3 text-left text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
-                                Shipping Date</th>
-                            <th
-                                class="px-6 py-3 text-left text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
-                                Delivery Date</th>
+                                Total</th>
                             <th
                                 class="px-6 py-3 text-left text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
                                 Actions</th>
-
                         </tr>
                     </thead>
                     <!-- Table Body -->
@@ -43,13 +43,17 @@
                         <!-- Iterate through orders -->
                         @foreach ($orders as $order)
                             <tr>
-                                <!-- Order Details -->
                                 <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
-                                    <!-- List of Ordered Products -->
+                                    {{ $order->id }}
+                                </td>
+                                <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
+                                    {{ $order->customer_name }} <br>
+                                    <small>{{ $order->customer_email }}</small>
+                                </td>
+                                <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
                                     <ul>
                                         @foreach ($order->items as $item)
-                                            <li>{{ $item->name }} (Qty: {{ $item->quantity }}) - ${{ $item->price }}
-                                            </li>
+                                            <li>{{ $item->name }} (Qty: {{ $item->quantity }})</li>
                                         @endforeach
                                     </ul>
                                 </td>
@@ -64,46 +68,38 @@
                                     @else
                                         <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-500 text-white">Cancelled</span>
-                                    @endif
+                                    @endif                                </td>
+                                <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
+                                    {{ $order->payment_method }}
                                 </td>
-                                <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">{{ $order->payment_method }}
+                                <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
+                                    ${{ $order->total }}
                                 </td>
-                                <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
-                                    {{ $order->possible_shipping_date }}</td>
-                                <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
-                                    {{ $order->possible_delivery_date }}</td>
-                                <!-- Cancel Order Button -->
-                                <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
-                                    @if ($order->status == 'completed')
-                                        <form action="{{ route('delete.delete', $order->id) }}" method="POST">
+                                <td class="px-6 py-4 text-lg text-gray-900 dark:text-white flex space-x-2 align-middle justify-center">
+                                    @if ($order->status == 'pending')
+                                        <form action="{{ route('orders-validate', $order->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Validate</button>
+                                        </form>
+                                    @elseif ($order->status == 'canceld')
+                                        <form action="{{ route('delete.orders', $order->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
-                                                class="bg-red-500 hover:bg-primary text-white font-bold py-2 px-4 rounded">Delete</button>
+                                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Mark
+                                                as Completed</button>
                                         </form>
-                                    @elseif ($order->status == 'cancelled')
-                                        <form action="{{ route('delete.order', $order->id) }}" method="POST">
+                                    @elseif ($order->status == 'completed')
+                                        <form action="{{ route('delete.orders', $order->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
-                                                class="bg-red-500 hover:bg-primary text-white font-bold py-2 px-4 rounded">Delete</button>
-                                        </form>
-                                    @elseif ($order->status == 'processing')
-                                        <form action="{{ route('cancel.order', $order->id) }}" method="POST">
-                                            @csrf
-                                            <button type="submit"
-                                                class="bg-red-500 opacity-50 cursor-not-allowed text-white font-bold py-2 px-4 rounded"
-                                                disabled>Cancel</button>
-                                        </form>
-                                    @else
-                                        <form action="{{ route('cancel.order', $order->id) }}" method="POST">
-                                            @csrf
-                                            <button type="submit"
-                                                class="bg-red-500 hover:bg-primary text-white font-bold py-2 px-4 rounded">Cancel</button>
+                                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Mark
+                                                as Completed</button>
                                         </form>
                                     @endif
                                 </td>
-
                             </tr>
                         @endforeach
                     </tbody>

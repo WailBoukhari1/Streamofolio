@@ -48,9 +48,20 @@ Route::middleware(['auth.verify', 'client'])->group(function () {
 
 });
 
-
 Route::middleware(['auth.verify', 'admin'])->group(function () {
+        Route::get('/account-info', [MainController::class, 'accountInfo'])->name('account-info');
+
     Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard');
+    Route::get('/manage-users', [MainController::class, 'manageUsers'])->name('manage-users');
+    Route::get('/manage-orders', [MainController::class, 'manageOrders'])->name('manage-orders');
+    Route::get('/manage-orders', [MainController::class, 'manageOrders'])->name('manage-orders');
+    Route::post('/manage-orders/{order}',[OrderController::class, 'orderValidate'])->name('orders-validate');
+
+    Route::get('/manage-products', [MainController::class, 'manageProducts'])->name('manage-products');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
 });
 
 // Login route

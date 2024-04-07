@@ -14,23 +14,24 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // Create a user
+        // Create a admin
         $user = User::create([
             'image' => 'assets\img\main\samples\about-me.jpg',
             'username' => 'John Doe',
-            'email' => 'john@example.com',
-            'password' => bcrypt('password'),
+            'email' => 'john@admin.com',
+            'password' => bcrypt('admin'),
+            'role' => 'admin',
+            'email_verified_at' => now(),
         ]);
 
-        // Define the schedule with days of the week and a specific time in EDT
         $schedule = [
-            'Mondays' => '10:00',
+            'Mondays' => '9:00',
             'Tuesdays' => '10:00',
-            'Wednesdays' => '10:00',
-            'Thursdays' => '10:00',
-            'Fridays' => '10:00',
+            'Wednesdays' => '',
+            'Thursdays' => '11:00',
+            'Fridays' => '',
             'Saturdays' => '10:00',
-            'Sundays' => '10:00',
+            'Sundays' => '',
         ];
 
         // Convert the schedule to JSON

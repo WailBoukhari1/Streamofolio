@@ -133,7 +133,7 @@ class MainController extends Controller
 
         return view('User.account-orders' , compact('orders'));
     }
-
+ 
     public function accountShipping()
     {
         $shippingDetail = null;
@@ -154,11 +154,28 @@ class MainController extends Controller
     public function checkout()
     {
         $cart = Session::get('cart', []);
-        $shippingDetail = Auth::user()->client->shipping;
+
+    $user = Auth::user();
+    if ($user->client) {
+        $shippingDetail = $user->client->shipping;
+    } else {
+        $shippingDetail = null;
+    }
         return view('User.checkout', compact('shippingDetail' , 'cart'));
     }
+    // Admin
     public function dashboard()
     {
         return view('Admin.dashboard');
+    }
+      public function manageOrders()
+    {
+        $orders = Order::all();
+        return view('Admin.orders-manage.index', compact('orders'));
+    }
+        public function manageUsers()
+    {
+        $users = User::all();
+        return view('Admin.users-manage.index', compact('users'));
     }
 }

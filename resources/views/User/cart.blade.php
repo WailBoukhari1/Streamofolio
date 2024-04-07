@@ -201,6 +201,8 @@
             </div>
             <form action="{{ route('checkout') }}" method="POST">
                 @csrf
+                <input type="hidden" name="total_price" value="{{ $totalAfterDiscount }}">
+
                 <button type="submit" class="inline-flex text-center font-bold leading-none transition-colors uppercase justify-center gap-x-3 py-4 px-4 md:py-[18px] lg:px-8 text-sm text-white bg-primary hover:bg-primary/90 w-full lg:mt-5">
                     Proceed to checkout
                 </button>
