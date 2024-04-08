@@ -92,7 +92,7 @@
                                                 class="bg-red-500 hover:bg-primary text-white font-bold py-2 px-4 rounded">Delete</button>
                                         </form>
                                     @elseif ($order->status == 'processing')
-                                        <form action="{{ route('cancel.order', $order->id) }}" method="POST">
+                                        <form action="#" method="POST">
                                             @csrf
                                             <button type="submit"
                                                 class="bg-red-500 opacity-50 cursor-not-allowed text-white font-bold py-2 px-4 rounded"

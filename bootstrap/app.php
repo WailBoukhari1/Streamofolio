@@ -4,9 +4,11 @@
 use App\Http\Middleware\AdminRoleMiddleware;
 use App\Http\Middleware\AuthenticateAndVerify;
 use App\Http\Middleware\ClientRoleMiddleware;
+use App\Http\Middleware\RedirectIfBanned;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+
 
 
 
@@ -29,6 +31,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'auth.verify' => AuthenticateAndVerify::class,
             'admin' => AdminRoleMiddleware::class,
             'client' => ClientRoleMiddleware::class,
+            'banned' => RedirectIfBanned::class,
+
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

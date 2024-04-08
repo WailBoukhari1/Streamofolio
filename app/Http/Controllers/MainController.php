@@ -40,7 +40,7 @@ class MainController extends Controller
     public function cart()
     {
         $cartItems = Session::get('cart', []);
-        if (empty ($cartItems)) {
+        if (empty($cartItems)) {
             $cartTotal = 0;
             $promoDiscount = 0;
             $totalAfterDiscount = 0;
@@ -131,9 +131,9 @@ class MainController extends Controller
     {
         $orders = Order::where('user_id', auth()->id())->orderBy('order_date', 'desc')->get();
 
-        return view('User.account-orders' , compact('orders'));
+        return view('User.account-orders', compact('orders'));
     }
- 
+
     public function accountShipping()
     {
         $shippingDetail = null;
@@ -155,27 +155,34 @@ class MainController extends Controller
     {
         $cart = Session::get('cart', []);
 
-    $user = Auth::user();
-    if ($user->client) {
-        $shippingDetail = $user->client->shipping;
-    } else {
-        $shippingDetail = null;
-    }
-        return view('User.checkout', compact('shippingDetail' , 'cart'));
+        $user = Auth::user();
+        if ($user->client) {
+            $shippingDetail = $user->client->shipping;
+        } else {
+            $shippingDetail = null;
+        }
+        return view('User.checkout', compact('shippingDetail', 'cart'));
     }
     // Admin
     public function dashboard()
     {
         return view('Admin.dashboard');
     }
-      public function manageOrders()
+    public function manageOrders()
     {
-        $orders = Order::all();
+        $orders = Order::where('status', 'pending')->get();
         return view('Admin.orders-manage.index', compact('orders'));
     }
-        public function manageUsers()
+    public function orderHistory()
     {
-    $users = User::where('role', 'client')->get();
+        $orders = Order::whereNotIn('status', ['pending'])
+            ->latest()
+            ->get();
+        return view('Admin.orders-manage.history', compact('orders'));
+    }
+    public function manageUsers()
+    {
+        $users = User::where('role', 'client')->get();
         return view('Admin.users-manage.index', compact('users'));
     }
 }

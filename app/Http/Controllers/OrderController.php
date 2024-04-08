@@ -61,8 +61,9 @@ $order->total_price_after_discount = str_replace(',', '', $request->input('total
     }
     public function deleteOrder(Order $order)
     {
+        dd(123);
         // Check if the order belongs to the authenticated user
-        if ($order->user_id != auth()->id()) {
+        if ($order->user_id != auth()->id() ) {
             abort(403); // Unauthorized
         }
 

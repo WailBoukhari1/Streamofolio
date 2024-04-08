@@ -28,6 +28,12 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
+            // Check if the user is banned
+            if (Auth::user()->banned_at !== null) {
+                Auth::logout();
+                return redirect()->route('banned');
+            }
+
             $request->session()->regenerate();
             return redirect()->intended('/');
         }

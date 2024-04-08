@@ -33,9 +33,7 @@
                                 <th
                                     class="px-6 py-3 text-left text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
                                     Total</th>
-                                <th
-                                    class="px-6 py-3 text-left text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
-                                    Actions</th>
+
                             </tr>
                         </thead>
                         <!-- Table Body -->
@@ -77,13 +75,7 @@
                                     <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
                                         ${{ $order->total_price_after_discount }}
                                     </td>
-                                    <td class="px-6 py-4 text-lg text-gray-900 dark:text-white flex space-x-2">
-                                            <form action="{{ route('orders-validate', $order->id) }}" method="POST">
-                                                @csrf
-                                                <button type="submit"
-                                                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Validate</button>
-                                            </form>
-                                    </td>
+
                                 </tr>
                             @endforeach
                         </tbody>

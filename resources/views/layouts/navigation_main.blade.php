@@ -102,7 +102,7 @@
                         <!-- Navigation (Desktop) -->
                         <ul
                             class="hidden lg:gap-x-5 xl:gap-x-8 text-gray-900 dark:text-white lg:text-sm xl:text-base font-bold uppercase tracking-tight lg:flex min-[1260px]:gap-x-10">
-                                 <li class="">
+                            <li class="">
                                 <a class="relative inline-flex leading-10 transition-colors after:absolute after:bottom-[7px] after:left-0 after:h-[2px] after:transition-transform after:w-full {{ Request::is('contact') ? 'after:origin-left after:scale-x-100 text-primary after:bg-primary' : 'after:bg-gray-900 dark:after:bg-white after:origin-right hover:after:origin-left after:scale-x-0 hover:after:scale-x-100 hover:text-primary hover:after:bg-primary dark:hover:after:bg-primary' }}"
                                     href="{{ route('shop') }}">
                                     Shop
@@ -185,25 +185,32 @@
                                             href="{{ route('account-orders') }}">
                                             Orders
                                         </a>
-                                    </li>                                                                 <li class="px-5.5">
+                                    </li>
+                                    <li class="px-5.5">
                                         <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
                                             href="{{ route('dashboard') }}">
                                             Dashboard
                                         </a>
                                     </li>
-                                                                        <li class="px-5.5">
+                                    <li class="px-5.5">
                                         <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
                                             href="{{ route('manage-orders') }}">
                                             Manage Orders
                                         </a>
                                     </li>
-                                                                        <li class="px-5.5">
+                                    <li class="px-5.5">
                                         <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
                                             href="{{ route('manage-users') }}">
                                             Manage User
                                         </a>
                                     </li>
-       
+                                    </li>
+                                    <li class="px-5.5">
+                                        <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
+                                            href="{{ route('orders.history') }}">
+                                            Order History
+                                        </a>
+                                    </li>
                                     <li class="px-5.5">
                                         <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
                                             href="{{ route('logout') }}">

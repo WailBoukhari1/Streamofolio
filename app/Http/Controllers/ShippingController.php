@@ -17,7 +17,6 @@ class ShippingController extends Controller
         $validatedData = $request->validate([
             'shipping-first-name' => 'required',
             'shipping-last-name' => 'required',
-            'shipping-email' => 'required|email',
             'shipping-phone' => 'required',
             'shipping-address-1' => 'required',
             'shipping-country' => 'required',

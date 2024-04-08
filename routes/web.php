@@ -28,7 +28,7 @@ Route::get('/stream', [MainController::class, 'stream'])->name('stream');
 Route::get('/donate', [MainController::class, 'donate'])->name('donate');
 
 
-Route::middleware(['auth.verify', 'client'])->group(function () {
+Route::middleware(['auth.verify', 'client' , 'banned'])->group(function () {
     Route::get('/account-info', [MainController::class, 'accountInfo'])->name('account-info');
     Route::get('/account-orders', [MainController::class, 'accountOrders'])->name('account-orders');
     Route::get('/account-shipping', [MainController::class, 'accountShipping'])->name('account-shipping');
@@ -45,7 +45,7 @@ Route::middleware(['auth.verify', 'client'])->group(function () {
     Route::post('/redeem-coupon', [CartController::class, 'applyCoupon'])->name('redeem.coupon');
     Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('place.order');
     Route::get('/thank-you', [OrderController::class, 'thankyou'])->name('thankyou');
-    Route::delete('/cancel-order/{order}', [OrderController::class, 'cancelOrder'])->name('cancel.order');
+    Route::post('/cancel-order/{order}', [OrderController::class, 'cancelOrder'])->name('cancel.order');
     Route::delete('/delete-order/{order}', [OrderController::class, 'deleteOrder'])->name('delete.order');
 
 });
@@ -58,12 +58,13 @@ Route::middleware(['auth.verify', 'admin'])->group(function () {
     Route::get('/manage-orders', [MainController::class, 'manageOrders'])->name('manage-orders');
     Route::get('/manage-orders', [MainController::class, 'manageOrders'])->name('manage-orders');
     Route::post('/manage-orders/{order}',[OrderController::class, 'validateOrder'])->name('orders-validate');
-
     Route::get('/manage-products', [MainController::class, 'manageProducts'])->name('manage-products');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::post('/user/{user}/ban', [UserController::class, 'banUser'])->name('user.ban');
     Route::post('/user/{user}/unban', [UserController::class, 'unban'])->name('user.unban');
+    Route::get('/history', [MainController::class, 'orderHistory'])->name('orders.history');
+
 
 
 });
