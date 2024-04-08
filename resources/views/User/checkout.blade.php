@@ -6,7 +6,6 @@
                 action="{{ route('place.order') }}" method="POST">
                 @csrf
                 <input type="hidden" name="total_after_discount" value="{{ number_format(Session::get('total_after_discount', 0), 2) }}">
-
                  <div class="col-span-full lg:col-start-3 lg:col-span-8">
                     <div>
                         <div class="not-prose flex flex-row mb-9 sm:mb-12 md:mb-14 lg:mb-16 xl:mb-20 justify-center">

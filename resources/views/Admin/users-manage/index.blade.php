@@ -28,18 +28,28 @@
                         @foreach ($users as $user)
                         <tr>
                             <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
-                                {{ $user->name }}
+                                {{ $user->client->first_name }} {{ $user->client->last_name }}
                             </td>
                             <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
                                 {{ $user->email }}
                             </td>
-                            <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
-                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this user?')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Ban</button>
-                                </form>
-                            </td>
+                      <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
+    @if($user->banned_at)
+        <!-- Unban Form -->
+        <form action="{{ route('user.unban', $user->id) }}" method="POST">
+            @csrf
+            @method('POST')
+            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Unban</button>
+        </form>
+    @else
+        <!-- Ban Form -->
+        <form action="{{ route('user.ban', $user->id) }}" method="POST">
+            @csrf
+            @method('POST')
+            <button type="submit" onclick="return confirm('Are you sure you want to ban this user?')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Ban</button>
+        </form>
+    @endif
+</td>
                         </tr>
                         @endforeach
                     </tbody>

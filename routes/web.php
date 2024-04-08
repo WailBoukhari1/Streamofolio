@@ -11,7 +11,9 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ShippingController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -55,15 +57,19 @@ Route::middleware(['auth.verify', 'admin'])->group(function () {
     Route::get('/manage-users', [MainController::class, 'manageUsers'])->name('manage-users');
     Route::get('/manage-orders', [MainController::class, 'manageOrders'])->name('manage-orders');
     Route::get('/manage-orders', [MainController::class, 'manageOrders'])->name('manage-orders');
-    Route::post('/manage-orders/{order}',[OrderController::class, 'orderValidate'])->name('orders-validate');
+    Route::post('/manage-orders/{order}',[OrderController::class, 'validateOrder'])->name('orders-validate');
 
     Route::get('/manage-products', [MainController::class, 'manageProducts'])->name('manage-products');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::post('/user/{user}/ban', [UserController::class, 'banUser'])->name('user.ban');
+    Route::post('/user/{user}/unban', [UserController::class, 'unban'])->name('user.unban');
+
 
 });
-
+Route::get('/banned', function () {
+    return view('Auth.banned');
+})->name('banned');
 // Login route
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login/store', [LoginController::class, 'store'])->name('login.store');

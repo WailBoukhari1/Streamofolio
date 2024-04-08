@@ -175,7 +175,7 @@ class MainController extends Controller
     }
         public function manageUsers()
     {
-        $users = User::all();
+    $users = User::where('role', 'client')->get();
         return view('Admin.users-manage.index', compact('users'));
     }
 }

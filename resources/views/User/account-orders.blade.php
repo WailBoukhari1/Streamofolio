@@ -58,6 +58,9 @@
                                     @if ($order->status == 'pending')
                                         <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-500 text-white">Pending</span>
+                                    @elseif($order->status == 'processing')
+                                        <span
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-700 text-white">Processing</span>
                                     @elseif($order->status == 'completed')
                                         <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-500 text-white">Completed</span>

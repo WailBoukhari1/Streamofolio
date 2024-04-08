@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -32,4 +33,21 @@ class UserController extends Controller
 
         return back()->with('success', 'User deleted successfully.');
     }
+    public function banUser($userId)
+{
+    $user = User::findOrFail($userId);
+    $user->banned_at = now();
+    $user->save();
+
+    // Additional code to handle after banning a user like logging, sending notification, etc.
+
+    return back()->with('success', 'User has been banned successfully.');
+}
+public function unban(User $user)
+{
+    // Assuming 'banned' is a boolean
+    $user->update(['banned' => false]);
+
+    return back()->with('success', 'User has been unbanned successfully!');
+}
 }

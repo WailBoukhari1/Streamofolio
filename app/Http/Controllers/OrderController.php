@@ -18,12 +18,10 @@ class OrderController extends Controller
     $processingDays = 2;
     $shippingDate = now()->addDays($processingDays);
     $deliveryDate = $shippingDate->addDays(5);
-
     $order->possible_shipping_date = $shippingDate;
     $order->possible_delivery_date = $deliveryDate;
     
-    // Retrieve total after discount from the request and assign it to total_price_after_discount
-    $order->total_price_after_discount = $request->input('total_after_discount');
+$order->total_price_after_discount = str_replace(',', '', $request->input('total_after_discount'));
 
     $order->status = 'pending';
 
@@ -89,6 +87,24 @@ class OrderController extends Controller
         $order->delete();
 
         return back()->with('success', 'Order cancelled successfully.');
+    }
+       public function validateOrder($order)
+    {
+        // Find the order by ID
+        $order = Order::find($order);
+
+        // Check if order exists and is in 'pending' status
+        if ($order && $order->status == 'pending') {
+            // Update the order status to 'processing'
+            $order->status = 'processing';
+            $order->save();
+
+            // Redirect back with success message
+            return back()->with('success', 'Order has been validated and is now processing.');
+        }
+
+        // Redirect back with error message if order doesn't exist or isn't in 'pending' status
+        return back()->with('error', 'Order cannot be validated or is already processed.');
     }
 
 }
