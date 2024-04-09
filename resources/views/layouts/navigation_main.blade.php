@@ -174,6 +174,12 @@
                                             Personal Info
                                         </a>
                                     </li>
+                                                                <li class="px-5.5">
+                                        <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
+                                            href="{{ route('admin-info') }}">
+                                            Admin Info
+                                        </a>
+                                    </li>
                                     <li class="px-5.5">
                                         <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
                                             href="{{ route('account-shipping') }}">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -40,7 +41,10 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
             'email_verified_at' => null,
         ]);
-
+        // this jus tfor a client to be created so i can have the id 
+        $client = new Client();
+        $client->user_id = $user->id;
+        $client->save();
         event(new Registered($user));
 
         if ($user) {

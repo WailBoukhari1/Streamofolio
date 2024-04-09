@@ -126,7 +126,10 @@ class MainController extends Controller
     {
         return view('User.account-info');
     }
-
+    public function adminInfo()
+    {
+        return view('Admin.admin-info');
+    }
     public function accountOrders()
     {
         $orders = Order::where('user_id', auth()->id())->orderBy('order_date', 'desc')->get();

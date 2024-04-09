@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -51,7 +53,9 @@ Route::middleware(['auth.verify', 'client' , 'banned'])->group(function () {
 });
 
 Route::middleware(['auth.verify', 'admin'])->group(function () {
-        Route::get('/account-info', [MainController::class, 'accountInfo'])->name('account-info');
+    
+    Route::get('/admin-info', [MainController::class, 'adminInfo'])->name('admin-info');
+    Route::post('/profile/update', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
 
     Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard');
     Route::get('/manage-users', [MainController::class, 'manageUsers'])->name('manage-users');

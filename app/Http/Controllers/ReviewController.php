@@ -20,12 +20,12 @@ class ReviewController extends Controller
         ]);
 
         $user = Auth::user();
-
+        $clientId = $user->client->id;
         $review = new Review();
         $review->title = $validatedData['review-title'];
         $review->rating = $validatedData['review-rating'];
         $review->comment = $validatedData['review-comment'];
-        $review->client_id = $user->id;
+        $review->client_id = $clientId;
         $review->product_id = $validatedData['product_id'];
 
         $review->save();

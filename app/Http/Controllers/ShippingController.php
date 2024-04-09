@@ -25,18 +25,14 @@ class ShippingController extends Controller
             'shipping-zip' => 'required',
         ]);
 
-        // Get the authenticated user's ID
         $userId = auth()->id();
 
-        // Create or update client details
-        $client = Client::updateOrCreate(
-            ['first_name' => $validatedData['shipping-first-name'], 'last_name' => $validatedData['shipping-last-name'], 'user_id' => $userId]
-        );
+        $client = Client::where('user_id', $userId)->first();
+        $client->first_name = $validatedData['shipping-first-name'];
+        $client->last_name = $validatedData['shipping-last-name'];
+        $client->save();
 
-        // Create a new shipping instance
         $shipping = new Shipping();
-
-        // Populate shipping data
         $shipping->phone = $validatedData['shipping-phone'];
         $shipping->address = $validatedData['shipping-address-1'];
         $shipping->country = $validatedData['shipping-country'];
@@ -45,10 +41,8 @@ class ShippingController extends Controller
         $shipping->zip = $validatedData['shipping-zip'];
         $shipping->client_id = $client->id;
 
-        // Save shipping details
         $shipping->save();
 
-        // Redirect back with a success message
         return redirect()->back()->with('success', 'Shipping details saved successfully.');
     }
 

@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admins', function (Blueprint $table) {
-            $table->id();
-            $table->string('twitch_username');
-            $table->json('schedule')->nullable();
-            $table->string('aliase');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
+                $table->id();
+                $table->string('twitch_username');
+                $table->json('schedule')->nullable();
+                $table->string('aliase');
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+                $table->timestamps();
         });
     }
 

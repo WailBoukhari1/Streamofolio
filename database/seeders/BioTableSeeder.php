@@ -14,6 +14,7 @@ class BioTableSeeder extends Seeder
     public function run(): void
     {
         Bio::create([
+            'bio_image' => 'assets\img\main\samples\about-me.jpg',
             'title' => "Hi! I'm JDao The Retro Streamer",
             'content' => 'My name is test, but lots of you may know me as test! I started streaming in 2016 and never stopped since then. I mostly play retro games from the 90’s and 00’s to bring back that nostalgic feel!',
         ]);
