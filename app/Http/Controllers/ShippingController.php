@@ -27,7 +27,7 @@ class ShippingController extends Controller
 
         $userId = auth()->id();
 
-        $client = Client::where('user_id', $userId)->first();
+        $client = User::find($userId);
         $client->first_name = $validatedData['shipping-first-name'];
         $client->last_name = $validatedData['shipping-last-name'];
         $client->save();
@@ -39,7 +39,7 @@ class ShippingController extends Controller
         $shipping->state = $validatedData['shipping-state'];
         $shipping->city = $validatedData['shipping-city'];
         $shipping->zip = $validatedData['shipping-zip'];
-        $shipping->client_id = $client->id;
+        $shipping->user_id = $userId;
 
         $shipping->save();
 

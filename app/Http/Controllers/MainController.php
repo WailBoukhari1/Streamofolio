@@ -90,15 +90,18 @@ class MainController extends Controller
         $products = $productsQuery->paginate(9);
         return view('User.shop', compact('products', 'categories'));
     }
-
     public function singleProduct($id)
     {
         $product = Product::findOrFail($id);
-        $reviews = Review::all();
+        $reviews = $product->reviews;
 
+        // Calculate the average rating
+        $totalRating = $reviews->sum('rating');
+        $averageRating = $reviews->isEmpty() ? 0 : $totalRating / $reviews->count();
 
-        return view('User.single-product', compact('product', 'reviews'));
+        return view('User.single-product', compact('product', 'reviews', 'averageRating'));
     }
+
 
     public function stream()
     {
@@ -141,8 +144,8 @@ class MainController extends Controller
     {
         $shippingDetail = null;
 
-        if (Auth::user()->client !== null) {
-            $shippingDetail = Auth::user()->client->shipping;
+        if (Auth::user() !== null) {
+            $shippingDetail = Auth::user()->shipping;
         }
 
         return view('User.account-shipping', compact('shippingDetail'));
@@ -159,8 +162,8 @@ class MainController extends Controller
         $cart = Session::get('cart', []);
 
         $user = Auth::user();
-        if ($user->client) {
-            $shippingDetail = $user->client->shipping;
+        if ($user) {
+            $shippingDetail = $user->shipping;
         } else {
             $shippingDetail = null;
         }
@@ -188,4 +191,17 @@ class MainController extends Controller
         $users = User::where('role', 'client')->get();
         return view('Admin.users-manage.index', compact('users'));
     }
+    public function manageProducts()
+    {
+        $products = Product::latest()->paginate(10);
+
+        foreach ($products as $product) {
+            $reviews = $product->reviews()->pluck('rating');
+            $averageRating = $reviews->isEmpty() ? 0 : $reviews->avg();
+            $product->rating = $averageRating;
+        }
+
+        return view('Admin.products-manage.index', compact('products'));
+    }
 }
+

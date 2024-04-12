@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('bio_image');
             $table->string('title');
             $table->text('content');
+            $table->foreignId('admin_id')->constrained('admins')->onDelete('cascade');
             $table->timestamps();
         });
     }

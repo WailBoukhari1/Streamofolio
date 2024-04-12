@@ -10,10 +10,12 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -39,7 +41,7 @@ Route::middleware(['auth.verify', 'client' , 'banned'])->group(function () {
     Route::post('/store-review', [ReviewController::class, 'store'])->name('store.review');
     Route::get('/cart', [MainController::class, 'cart'])->name('cart');
     Route::post('/checkout', [MainController::class, 'checkout'])->name('checkout');
-    Route::post('/profile/update', [ClientController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
     Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
     Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
     Route::delete('/cart/{key}', [CartController::class, 'delete'])->name('cart.delete');
@@ -55,7 +57,7 @@ Route::middleware(['auth.verify', 'client' , 'banned'])->group(function () {
 Route::middleware(['auth.verify', 'admin'])->group(function () {
     
     Route::get('/admin-info', [MainController::class, 'adminInfo'])->name('admin-info');
-    Route::post('/profile/update', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
+    Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('admin.profile.update');
 
     Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard');
     Route::get('/manage-users', [MainController::class, 'manageUsers'])->name('manage-users');
@@ -68,7 +70,12 @@ Route::middleware(['auth.verify', 'admin'])->group(function () {
     Route::post('/user/{user}/ban', [UserController::class, 'banUser'])->name('user.ban');
     Route::post('/user/{user}/unban', [UserController::class, 'unban'])->name('user.unban');
     Route::get('/history', [MainController::class, 'orderHistory'])->name('orders.history');
-
+    Route::get('/products', [MainController::class, 'manageProducts'])->name('products.index');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 
 });

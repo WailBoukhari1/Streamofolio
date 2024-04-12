@@ -31,7 +31,7 @@
                             class="block text-sm font-bold uppercase tracking-tight text-gray-900 dark:text-white [&:not(:empty)]:mb-2.5"
                             for="email">Your Email</label>
                         <input
-                            class="group-[.is-success]:bg-input-success-dark group-[.is-error]:border-danger group-[.is-error]:bg-input-invalid group-[.is-error]:text-danger group-[.is-success]:pr-16 group-[.is-invalid]:pr-16 px-4 py-2 border-base bg-white bg-[length:18px_18px,_38px_38px] bg-[position:right_16px_center,_right_6px_center] bg-no-repeat font-medium leading-8 tracking-tight text-gray-900 transition-all duration-150 placeholder:font-normal placeholder:text-gray-500/60 focus:border-accent focus:bg-white focus:text-gray-900 focus:outline-0 focus:ring-0 dark:border-gray-600 dark:group-[.is-success]:bg-input-success dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500/80 dark:focus:border-accent dark:focus:bg-gray-900 w-full"
+                            class="px-4 py-2 border-base bg-white bg-[length:18px_18px,_38px_38px] bg-[position:right_16px_center,_right_6px_center] bg-no-repeat font-medium leading-8 tracking-tight text-gray-900 transition-all duration-150 placeholder:font-normal placeholder:text-gray-500/60 focus:border-accent focus:bg-white focus:text-gray-900 focus:outline-0 focus:ring-0 dark:border-gray-600 dark:group-[.is-success]:bg-input-success dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500/80 dark:focus:border-accent dark:focus:bg-gray-900 w-full"
                             type="email" name="email" id="email" value="{{ old('email', Auth::user()->email) }}"
                             placeholder="Enter your email">
                         @error('email')
@@ -43,7 +43,7 @@
                             class="block text-sm font-bold uppercase tracking-tight text-gray-900 dark:text-white [&:not(:empty)]:mb-2.5"
                             for="username">Your Username</label>
                         <input
-                            class="group-[.is-success]:bg-input-success-dark group-[.is-error]:border-danger group-[.is-error]:bg-input-invalid group-[.is-error]:text-danger group-[.is-success]:pr-16 group-[.is-invalid]:pr-16 px-4 py-2 border-base bg-white bg-[length:18px_18px,_38px_38px] bg-[position:right_16px_center,_right_6px_center] bg-no-repeat font-medium leading-8 tracking-tight text-gray-900 transition-all duration-150 placeholder:font-normal placeholder:text-gray-500/60 focus:border-accent focus:bg-white focus:text-gray-900 focus:outline-0 focus:ring-0 dark:border-gray-600 dark:group-[.is-success]:bg-input-success dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500/80 dark:focus:border-accent dark:focus:bg-gray-900 w-full"
+                            class="px-4 py-2 border-base bg-white bg-[length:18px_18px,_38px_38px] bg-[position:right_16px_center,_right_6px_center] bg-no-repeat font-medium leading-8 tracking-tight text-gray-900 transition-all duration-150 placeholder:font-normal placeholder:text-gray-500/60 focus:border-accent focus:bg-white focus:text-gray-900 focus:outline-0 focus:ring-0 dark:border-gray-600 dark:group-[.is-success]:bg-input-success dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500/80 dark:focus:border-accent dark:focus:bg-gray-900 w-full"
                             type="text" name="username" id="username"
                             value="{{ old('username', Auth::user()->username) }}" placeholder="Enter your username">
                         @error('username')
@@ -55,9 +55,9 @@
                             class="block text-sm font-bold uppercase tracking-tight text-gray-900 dark:text-white [&:not(:empty)]:mb-2.5"
                             for="first-name">First Name</label>
                         <input
-                            class="group-[.is-success]:bg-input-success-dark group-[.is-error]:border-danger group-[.is-error]:bg-input-invalid group-[.is-error]:text-danger group-[.is-success]:pr-16 group-[.is-invalid]:pr-16 px-4 py-2 border-base bg-white bg-[length:18px_18px,_38px_38px] bg-[position:right_16px_center,_right_6px_center] bg-no-repeat font-medium leading-8 tracking-tight text-gray-900 transition-all duration-150 placeholder:font-normal placeholder:text-gray-500/60 focus:border-accent focus:bg-white focus:text-gray-900 focus:outline-0 focus:ring-0 dark:border-gray-600 dark:group-[.is-success]:bg-input-success dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500/80 dark:focus:border-accent dark:focus:bg-gray-900 w-full"
+                            class="px-4 py-2 border-base bg-white bg-[length:18px_18px,_38px_38px] bg-[position:right_16px_center,_right_6px_center] bg-no-repeat font-medium leading-8 tracking-tight text-gray-900 transition-all duration-150 placeholder:font-normal placeholder:text-gray-500/60 focus:border-accent focus:bg-white focus:text-gray-900 focus:outline-0 focus:ring-0 dark:border-gray-600 dark:group-[.is-success]:bg-input-success dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500/80 dark:focus:border-accent dark:focus:bg-gray-900 w-full"
                             type="text" name="first-name" id="first-name"
-                            value="{{ old('first-name', Auth::user()->client->first_name ?? '') }}"
+                            value="{{ old('first-name', Auth::user()->first_name ?? '') }}"
                             placeholder="Enter your first name">
                         @error('first-name')
                             <p class="group-[.is-error]:block mt-2 hidden text-xs text-danger">{{ $message }}</p>
@@ -68,9 +68,9 @@
                             class="block text-sm font-bold uppercase tracking-tight text-gray-900 dark:text-white [&:not(:empty)]:mb-2.5"
                             for="last-name">Last Name</label>
                         <input
-                            class="group-[.is-success]:bg-input-success-dark group-[.is-error]:border-danger group-[.is-error]:bg-input-invalid group-[.is-error]:text-danger group-[.is-success]:pr-16 group-[.is-invalid]:pr-16 px-4 py-2 border-base bg-white bg-[length:18px_18px,_38px_38px] bg-[position:right_16px_center,_right_6px_center] bg-no-repeat font-medium leading-8 tracking-tight text-gray-900 transition-all duration-150 placeholder:font-normal placeholder:text-gray-500/60 focus:border-accent focus:bg-white focus:text-gray-900 focus:outline-0 focus:ring-0 dark:border-gray-600 dark:group-[.is-success]:bg-input-success dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500/80 dark:focus:border-accent dark:focus:bg-gray-900 w-full"
+                            class="px-4 py-2 border-base bg-white bg-[length:18px_18px,_38px_38px] bg-[position:right_16px_center,_right_6px_center] bg-no-repeat font-medium leading-8 tracking-tight text-gray-900 transition-all duration-150 placeholder:font-normal placeholder:text-gray-500/60 focus:border-accent focus:bg-white focus:text-gray-900 focus:outline-0 focus:ring-0 dark:border-gray-600 dark:group-[.is-success]:bg-input-success dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500/80 dark:focus:border-accent dark:focus:bg-gray-900 w-full"
                             type="text" name="last-name" id="last-name"
-                            value="{{ old('last-name', Auth::user()->client->last_name ?? '') }}"
+                            value="{{ old('last-name', Auth::user()->last_name ?? '') }}"
                             placeholder="Enter your last name">
                         @error('last-name')
                             <p class="group-[.is-error]:block mt-2 hidden text-xs text-danger">{{ $message }}</p>
@@ -81,7 +81,7 @@
                             class="block text-sm font-bold uppercase tracking-tight text-gray-900 dark:text-white [&:not(:empty)]:mb-2.5"
                             for="change-password">Change Password</label>
                         <input
-                            class="group-[.is-success]:bg-input-success-dark group-[.is-error]:border-danger group-[.is-error]:bg-input-invalid group-[.is-error]:text-danger group-[.is-success]:pr-16 group-[.is-invalid]:pr-16 px-4 py-2 border-base bg-white bg-[length:18px_18px,_38px_38px] bg-[position:right_16px_center,_right_6px_center] bg-no-repeat font-medium leading-8 tracking-tight text-gray-900 transition-all duration-150 placeholder:font-normal placeholder:text-gray-500/60 focus:border-accent focus:bg-white focus:text-gray-900 focus:outline-0 focus:ring-0 dark:border-gray-600 dark:group-[.is-success]:bg-input-success dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500/80 dark:focus:border-accent dark:focus:bg-gray-900 w-full"
+                            class="px-4 py-2 border-base bg-white bg-[length:18px_18px,_38px_38px] bg-[position:right_16px_center,_right_6px_center] bg-no-repeat font-medium leading-8 tracking-tight text-gray-900 transition-all duration-150 placeholder:font-normal placeholder:text-gray-500/60 focus:border-accent focus:bg-white focus:text-gray-900 focus:outline-0 focus:ring-0 dark:border-gray-600 dark:group-[.is-success]:bg-input-success dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500/80 dark:focus:border-accent dark:focus:bg-gray-900 w-full"
                             type="password" name="change-password" id="change-password" value="" placeholder="">
                         @error('change-password')
                             <p class="group-[.is-error]:block mt-2 hidden text-xs text-danger">{{ $message }}</p>
@@ -92,7 +92,7 @@
                             class="block text-sm font-bold uppercase tracking-tight text-gray-900 dark:text-white [&:not(:empty)]:mb-2.5"
                             for="repeat-password">Repeat Password</label>
                         <input
-                            class="group-[.is-success]:bg-input-success-dark group-[.is-error]:border-danger group-[.is-error]:bg-input-invalid group-[.is-error]:text-danger group-[.is-success]:pr-16 group-[.is-invalid]:pr-16 px-4 py-2 border-base bg-white bg-[length:18px_18px,_38px_38px] bg-[position:right_16px_center,_right_6px_center] bg-no-repeat font-medium leading-8 tracking-tight text-gray-900 transition-all duration-150 placeholder:font-normal placeholder:text-gray-500/60 focus:border-accent focus:bg-white focus:text-gray-900 focus:outline-0 focus:ring-0 dark:border-gray-600 dark:group-[.is-success]:bg-input-success dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500/80 dark:focus:border-accent dark:focus:bg-gray-900 w-full"
+                            class="px-4 py-2 border-base bg-white bg-[length:18px_18px,_38px_38px] bg-[position:right_16px_center,_right_6px_center] bg-no-repeat font-medium leading-8 tracking-tight text-gray-900 transition-all duration-150 placeholder:font-normal placeholder:text-gray-500/60 focus:border-accent focus:bg-white focus:text-gray-900 focus:outline-0 focus:ring-0 dark:border-gray-600 dark:group-[.is-success]:bg-input-success dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500/80 dark:focus:border-accent dark:focus:bg-gray-900 w-full"
                             type="password" name="repeat-password" id="repeat-password" value="" placeholder="">
                         @error('repeat-password')
                             <p class="group-[.is-error]:block mt-2 hidden text-xs text-danger">{{ $message }}</p>
@@ -109,7 +109,7 @@
                                     for="twitch-username">Twitch Username</label>
                                 <input
                                     class="w-full py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-accent dark:bg-gray-800 dark:text-white"
-                                    type="text" name="twitch-username" id="twitch-username"
+                                    type="text" name="twitch-username" id="twitch-username" value="{{ old('twitch-username', Auth::user()->admin->twitch_username ?? '') }}"
                                     placeholder="Enter Twitch username">
                                 @error('twitch-username')
                                     <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
@@ -121,7 +121,8 @@
                                     for="aliase">Aliase</label>
                                 <input
                                     class="w-full py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-accent dark:bg-gray-800 dark:text-white"
-                                    type="text" name="aliase" id="aliase" placeholder="Enter aliase">
+                                    type="text" name="aliase" id="aliase" placeholder="Enter aliase"
+                                    value="{{ old('aliase', Auth::user()->admin->aliase ?? '') }}">
                                 @error('aliase')
                                     <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                                 @enderror
@@ -137,18 +138,31 @@
                                         for="bio-image">Bio Image</label>
                                     <input
                                         class="w-full py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-accent dark:bg-gray-800 dark:text-white"
-                                        type="file" name="bio-image" id="bio-image">
+                                        type="file" name="bio-image" id="bio-image"
+                                        value="{{ old('bio-image', Auth::user()->admin->bio_image ?? '') }}">
                                     @error('bio-image')
                                         <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                                     @enderror
                                 </div>
+                                                            <div class="mb-4">
+                                <label class="block text-sm font-bold tracking-tight text-gray-900 dark:text-white mb-1"
+                                    for="aliase">Ttile</label>
+                                <input
+                                    class="w-full py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-accent dark:bg-gray-800 dark:text-white"
+                                    type="text" name="title" id="title" placeholder="Enter bio title"
+                                    value="{{ old('aliase', Auth::user()->admin->bio->title ?? '') }}">
+                                @error('aliase')
+                                    <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
                                 <div class="mb-4">
                                     <label
                                         class="block text-sm font-bold tracking-tight text-gray-900 dark:text-white mb-1"
-                                        for="bio">Bio</label>
+                                        for="content">Bio</label>
                                     <textarea
                                         class="w-full h-24 py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-accent dark:bg-gray-800 dark:text-white"
-                                        name="bio" id="bio" placeholder="Enter bio"></textarea>
+                                        name="content" id="content" placeholder="Enter bio"
+                                        ></textarea>
                                     @error('bio')
                                         <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                                     @enderror
@@ -167,7 +181,7 @@
                                             for="monday-schedule">Monday</label>
                                         <input
                                             class="w-full py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-accent dark:bg-gray-800 dark:text-white"
-                                            type="time" name="monday-schedule" id="monday-schedule">
+                                            type="time" name="monday-schedule" id="monday-schedule" value="{{ old('monday-schedule', Auth::user()->admin->monday_schedule ?? '') }}">
                                         @error('monday-schedule')
                                             <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                                         @enderror
@@ -176,10 +190,10 @@
                                     <div class="mb-4">
                                         <label
                                             class="block text-sm font-bold tracking-tight text-gray-900 dark:text-white mb-1"
-                                            for="monday-schedule">Tuesday</label>
+                                            for="tuesday-schedule">Tuesday</label>
                                         <input
                                             class="w-full py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-accent dark:bg-gray-800 dark:text-white"
-                                            type="time" name="monday-schedule" id="monday-schedule">
+                                            type="time" name="tuesday-schedule" id="tuesday-schedule" value="{{ old('tuesday-schedule', Auth::user()->admin->tuesday_schedule ?? '') }}">
                                         @error('tuesday-schedule')
                                             <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                                         @enderror
@@ -188,10 +202,10 @@
                                     <div class="mb-4">
                                         <label
                                             class="block text-sm font-bold tracking-tight text-gray-900 dark:text-white mb-1"
-                                            for="monday-schedule">Wednesday</label>
+                                            for="wednesday-schedule">Wednesday</label>
                                         <input
                                             class="w-full py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-accent dark:bg-gray-800 dark:text-white"
-                                            type="time" name="monday-schedule" id="monday-schedule">
+                                            type="time" name="wednesday-schedule" id="wednesday-schedule" value="{{ old('wednesday-schedule', Auth::user()->admin->wednesday_schedule ?? '') }}">
                                         @error('wednesday-schedule')
                                             <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                                         @enderror
@@ -200,10 +214,10 @@
                                     <div class="mb-4">
                                         <label
                                             class="block text-sm font-bold tracking-tight text-gray-900 dark:text-white mb-1"
-                                            for="monday-schedule">Thursday</label>
+                                            for="thursday-schedule">Thursday</label>
                                         <input
                                             class="w-full py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-accent dark:bg-gray-800 dark:text-white"
-                                            type="time" name="monday-schedule" id="monday-schedule">
+                                            type="time" name="thursday-schedule" id="thursday-schedule" value="{{ old('thursday-schedule', Auth::user()->admin->thursday_schedule ?? '') }}">
                                         @error('thursday-schedule')
                                             <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                                         @enderror
@@ -212,10 +226,10 @@
                                     <div class="mb-4">
                                         <label
                                             class="block text-sm font-bold tracking-tight text-gray-900 dark:text-white mb-1"
-                                            for="monday-schedule">Friday</label>
+                                            for="friday-schedule">Friday</label>
                                         <input
                                             class="w-full py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-accent dark:bg-gray-800 dark:text-white"
-                                            type="time" name="monday-schedule" id="monday-schedule">
+                                            type="time" name="friday-schedule" id="friday-schedule" value="{{ old('friday-schedule', Auth::user()->admin->friday_schedule ?? '') }}">
                                         @error('friday-schedule')
                                             <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                                         @enderror
@@ -224,10 +238,10 @@
                                     <div class="mb-4">
                                         <label
                                             class="block text-sm font-bold tracking-tight text-gray-900 dark:text-white mb-1"
-                                            for="monday-schedule">Saturday</label>
+                                            for="saturday-schedule">Saturday</label>
                                         <input
                                             class="w-full py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-accent dark:bg-gray-800 dark:text-white"
-                                            type="time" name="monday-schedule" id="monday-schedule">
+                                            type="time" name="saturday-schedule" id="saturday-schedule" value="{{ old('saturday-schedule', Auth::user()->admin->saturday_schedule ?? '') }}">
                                         @error('saturday-schedule')
                                             <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                                         @enderror
@@ -236,10 +250,10 @@
                                     <div class="mb-4">
                                         <label
                                             class="block text-sm font-bold tracking-tight text-gray-900 dark:text-white mb-1"
-                                            for="monday-schedule">Sunday</label>
+                                            for="sunday-schedule">Sunday</label>
                                         <input
                                             class="w-full py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-accent dark:bg-gray-800 dark:text-white"
-                                            type="time" name="monday-schedule" id="monday-schedule">
+                                            type="time" name="sunday-schedule" id="sunday-schedule" value="{{ old('sunday-schedule', Auth::user()->admin->sunday_schedule ?? '') }}">
                                         @error('sunday-schedule')
                                             <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                                         @enderror
@@ -248,12 +262,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="lg:col-start-2 pt-2 flex justify-end">
-                        <button type="submit"
-                            class="inline-flex text-center font-bold leading-none transition-colors uppercase justify-center gap-x-3 py-4 px-4 md:py-[18px] lg:px-8 text-sm text-white bg-primary hover:bg-primary/90">
-                            Save all changes
-                        </button>
-                    </div>
+                </div>
+                <div class="col-span-full">
+                    <button type="submit"
+                        class="block w-full md:w-auto py-3 px-4 border border-transparent text-white font-medium tracking-tight bg-accent transition-all duration-150 hover:bg-accent-dark focus:outline-none focus:border-accent-dark focus:ring-2 focus:ring-accent-dark">Save
+                        Changes</button>
                 </div>
             </form>
         </div>

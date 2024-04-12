@@ -27,25 +27,26 @@
                 <div class="col-span-full md:col-span-5 xl:-ml-7">
 
                     <h2
-                        class="mb-2 text-2xl uppercase font-bold tracking-tighter text-gray-900 md:mb-2 lg:mb-5 md:text-2.5xl lg:text-4xl dark:text-white">
+                        class="text-2xl uppercase font-bold tracking-tighter text-gray-900 md:text-2.5xl lg:text-4xl dark:text-white">
                         {{ $product->name }}
                     </h2>
 
-                    <div class="flex items-center gap-x-4 relative text-sm leading-none mb-4 md:mb-6">
-                        <div class="relative inline-flex leading-none gap-[5px]">
-                            @for ($i = 0; $i < $product->rating; $i++)
-                                <svg role="img" class="h-3.5 w-3.5 fill-gray-200 dark:fill-white/20">
-                                    <use xlink:href="assets/img/main/sprite.svg#star"></use>
+                    <div class="flex items-center gap-x-2 relative text-sm leading-none py-5">
+                        @for ($i = 1; $i <= 5; $i++)
+                            @if ($i <= $averageRating)
+                                <svg role="img" class="h-5 w-5 fill-current text-primary"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 1.938l2.383 6.406h6.198a.766.766 0 0 1 .533 1.3l-5.227 4.144 1.978 6.114a.768.768 0 0 1-1.174.896L12 17.714l-5.689 4.084a.768.768 0 0 1-1.174-.896l1.978-6.114-5.227-4.144a.766.766 0 0 1 .533-1.3h6.198z" />
                                 </svg>
-                            @endfor
-                        </div>
-                        <div class="absolute left-0 top-0 inline-flex leading-none gap-[5px]">
-                            @for ($i = $product->rating; $i < 5; $i++)
-                                <svg role="img" class="h-3.5 w-3.5 fill-gray-900 dark:fill-white">
-                                    <use xlink:href="assets/img/main/sprite.svg#star"></use>
+                            @else
+                                <svg role="img" class="h-5 w-5 fill-current text-gray-200 dark:text-white"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 1.938l2.383 6.406h6.198a.766.766 0 0 1 .533 1.3l-5.227 4.144 1.978 6.114a.768.768 0 0 1-1.174.896L12 17.714l-5.689 4.084a.768.768 0 0 1-1.174-.896l1.978-6.114-5.227-4.144a.766.766 0 0 1 .533-1.3h6.198z" />
                                 </svg>
-                            @endfor
-                        </div>
+                            @endif
+                        @endfor
                     </div>
 
                     <div
@@ -112,7 +113,7 @@
                                     class="block text-sm font-bold uppercase tracking-tight text-gray-900 dark:text-white [&:not(:empty)]:mb-2.5"
                                     for="review-title">Review Title</label>
                                 <input
-                                    class="group-[.is-success]:bg-input-success-dark group-[.is-error]:border-danger group-[.is-error]:bg-input-invalid group-[.is-error]:text-danger group-[.is-success]:pr-16 group-[.is-invalid]:pr-16 px-4 py-2 border-base bg-white bg-[length:18px_18px,_38px_38px] bg-[position:right_16px_center,_right_6px_center] bg-no-repeat font-medium leading-8 tracking-tight text-gray-900 transition-all duration-150 placeholder:font-normal placeholder:text-gray-500/60 focus:border-accent focus:bg-white focus:text-gray-900 focus:outline-0 focus:ring-0 dark:border-gray-600 dark:group-[.is-success]:bg-input-success dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500/80 dark:focus:border-accent dark:focus:bg-gray-900 w-full"
+                                    class="px-4 py-2 border-base bg-white bg-[length:18px_18px,_38px_38px] bg-[position:right_16px_center,_right_6px_center] bg-no-repeat font-medium leading-8 tracking-tight text-gray-900 transition-all duration-150 placeholder:font-normal placeholder:text-gray-500/60 focus:border-accent focus:bg-white focus:text-gray-900 focus:outline-0 focus:ring-0 dark:border-gray-600 dark:group-[.is-success]:bg-input-success dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500/80 dark:focus:border-accent dark:focus:bg-gray-900 w-full"
                                     type="text" name="review-title" id="review-title" value="" placeholder="">
                                 <p class="group-[.is-error]:block mt-2 hidden text-xs text-danger"></p>
                             </div>
@@ -155,7 +156,7 @@
                             <li class="mb-12 lg:mb-20">
                                 <div class="flex gap-x-7 md:gap-x-9">
                                     <figure class="shrink-0 mt-0" style="width: 19%;">
-                                        <img src="{{ asset($review->client->user->image ?? asset('assets/img/main/samples/user-4-80x80.jpg')) }}"
+                                        <img src="{{ asset($review->user->image ?? asset('assets/img/main/samples/user-4-80x80.jpg')) }}"
                                             alt="Comment Author Avatar">
                                     </figure>
 
@@ -188,7 +189,7 @@
                                         </div>
                                         <div
                                             class="text-base leading-tight uppercase font-bold tracking-tighter text-gray-900 dark:text-white">
-                                            by <strong class="text-primary">{{ $review->client->username }}</strong>
+                                            by <strong class="text-primary">{{ $review->username }}</strong>
                                             <time class=""
                                                 datetime="{{ $review->created_at }}">{{ $review->created_at->diffForHumans() }}</time>
                                         </div>

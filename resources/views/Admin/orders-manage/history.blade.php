@@ -45,7 +45,7 @@
                                         {{ $order->id }}
                                     </td>
                                     <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
-                                        {{ $order->user->client->first_name }} {{ $order->user->client->last_name  }} <br>
+                                        {{ $order->user->first_name }} {{ $order->user->last_name  }} <br>
                                         <small>{{ $order->user->email }}</small>
                                     </td>
                                     <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">

@@ -21,7 +21,9 @@ class User extends Authenticatable
         'email',
         'password',
         'image',
-        'client',
+        'first_name',
+        'last_name',
+        'user_id'
     ];
 
     /**
@@ -53,11 +55,13 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class);
 
     }
-    public function client()
+    public function reviews()
     {
-
-        return $this->hasOne(Client::class);
-
+        return $this->hasMany(Review::class);
+    }
+    public function shipping()
+    {
+        return $this->hasOne(Shipping::class);
     }
 
 }

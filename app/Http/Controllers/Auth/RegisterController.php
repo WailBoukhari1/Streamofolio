@@ -41,11 +41,6 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
             'email_verified_at' => null,
         ]);
-        // this jus tfor a client to be created so i can have the id 
-        $client = new Client();
-        $client->user_id = $user->id;
-        $client->save();
-        event(new Registered($user));
 
         if ($user) {
             Auth::login($user);

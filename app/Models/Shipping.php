@@ -10,8 +10,8 @@ class Shipping extends Model
 {
     use HasFactory;
     protected $fillable = ['phone', 'address', 'country', 'state', 'city', 'zip', 'client_id'];
-    public function client()
+    public function user()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(User::class);
     }
 }

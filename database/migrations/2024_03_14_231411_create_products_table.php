@@ -19,8 +19,8 @@ return new class extends Migration
             $table->decimal('price', 8, 2);
             $table->string('category');
             $table->unsignedTinyInteger('rating')->default(0);
-            // $table->unsignedInteger('stock')->default(0);
-            // $table->unsignedInteger('sold')->default(0);
+            $table->unsignedInteger('stock')->default(0);
+            $table->unsignedInteger('sold')->default(0);
             $table->timestamps();
         });
     }

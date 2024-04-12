@@ -32,8 +32,10 @@ class ProductFactory extends Factory
             'name' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
             'price' => $this->faker->randomFloat(2, 10, 1000),
-            'category' => $this->faker->randomElement(['FRAMED PRINT', 'COFFEE MUGS', 'CLOTHING' , 'PINS/BUTTONS']),
+            'category' => $this->faker->randomElement(['FRAMED PRINT', 'COFFEE MUGS', 'CLOTHING', 'PINS/BUTTONS']),
             'rating' => $this->faker->numberBetween(0, 5),
+            'stock' => $this->faker->numberBetween(0, 100),
+            'sold' => $this->faker->numberBetween(0, 50),
             'created_at' => now(),
             'updated_at' => now(),
         ];
