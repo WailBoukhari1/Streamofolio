@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Affiliate;
 use App\Models\Bio;
+use App\Models\Blog;
 use App\Models\Gear;
 use App\Models\Order;
 use App\Models\Partner;
@@ -202,6 +203,22 @@ class MainController extends Controller
         }
 
         return view('Admin.products-manage.index', compact('products'));
+    }
+    public function blogs()
+    {
+        // Fetch all blogs from the database
+        $blogs = Blog::latest()->paginate(9);
+        $categories =  $blogs->pluck('category')->unique(); 
+
+        return view('User.blogs', compact('blogs', 'categories'));
+    }
+
+    public function blogShow($id)
+    {
+        // Fetch the specific blog by its ID from the database
+        $blog = Blog::findOrFail($id);
+
+        return view('User.blogs-single', compact('blog'));
     }
 }
 

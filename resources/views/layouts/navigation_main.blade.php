@@ -115,8 +115,8 @@
                                 </a>
                             </li>
                             <li class="">
-                                <a class="relative inline-flex leading-10 transition-colors after:absolute after:bottom-[7px] after:left-0 after:h-[2px] after:transition-transform after:w-full {{ Request::is('donate') ? 'after:origin-left after:scale-x-100 text-primary after:bg-primary' : 'after:bg-gray-900 dark:after:bg-white after:origin-right hover:after:origin-left after:scale-x-0 hover:after:scale-x-100 hover:text-primary hover:after:bg-primary dark:hover:after:bg-primary' }}"
-                                    href="#.html">
+                                <a class="relative inline-flex leading-10 transition-colors after:absolute after:bottom-[7px] after:left-0 after:h-[2px] after:transition-transform after:w-full {{ Request::is('blogs') ? 'after:origin-left after:scale-x-100 text-primary after:bg-primary' : 'after:bg-gray-900 dark:after:bg-white after:origin-right hover:after:origin-left after:scale-x-0 hover:after:scale-x-100 hover:text-primary hover:after:bg-primary dark:hover:after:bg-primary' }}"
+                                    href="{{ route('blogs') }}">
                                     Blogs
                                 </a>
                             </li>
@@ -460,9 +460,9 @@
                 </li>
                 <li
                     class="flex flex-wrap items-center gap-x-4 border-b border-b-gray-200/50 dark:border-b-gray-200/10">
-                    <a class="flex-grow gap-x-1 py-4 uppercase leading-normal text-gray-900 transition-colors hover:text-primary dark:text-white dark:hover:text-primary {{ request()->is('donate') ? 'active' : '' }}"
-                        href="{{ route('donate') }}">
-                        Donate
+                    <a class="flex-grow gap-x-1 py-4 uppercase leading-normal text-gray-900 transition-colors hover:text-primary dark:text-white dark:hover:text-primary {{ request()->is('blogs') ? 'active' : '' }}"
+                        href="{{ route('blogs') }}">
+                        blogs
                     </a>
                 </li>
             </ul>

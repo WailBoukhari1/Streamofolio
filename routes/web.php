@@ -1,13 +1,12 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\ClientController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -23,14 +22,16 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
 Route::get('/', [MainController::class, 'home'])->name('home');
 Route::get('/affiliates', [MainController::class, 'affiliates'])->name('affiliates');
 Route::get('/contact', [MainController::class, 'contact'])->name('contact');
 Route::get('/shop', [MainController::class, 'shop'])->name('shop');
 Route::get('/single-product/{id}', [MainController::class, 'singleProduct'])->name('single-product');
 Route::get('/stream', [MainController::class, 'stream'])->name('stream');
-Route::get('/donate', [MainController::class, 'donate'])->name('donate');
-
+Route::get('/blogs', [MainController::class, 'blogs'])->name('blogs');
+Route::get('/blogs/{id}', [MainController::class, 'blogShow'])->name('blog.show');
+Route::get('/search', [BlogController::class, 'search'])->name('blogs.search');
 
 Route::middleware(['auth.verify', 'client' , 'banned'])->group(function () {
     Route::get('/account-info', [MainController::class, 'accountInfo'])->name('account-info');
