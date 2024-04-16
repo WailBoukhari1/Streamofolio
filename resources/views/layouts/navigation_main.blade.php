@@ -163,34 +163,39 @@
 
                                 <ul
                                     class="sub-menu invisible absolute right-full z-20 -mr-9 flex w-40 origin-top-right flex-col bg-white dark:bg-gray-700 py-3 text-sm font-bold opacity-0 shadow-2xl transition-all uppercase">
-                                    <li class="px-5.5">
-                                        <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
-                                            href="{{ route('account-info') }}">
-                                            Personal Info
-                                        </a>
-                                    </li>
-                                                                <li class="px-5.5">
-                                        <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
-                                            href="{{ route('admin-info') }}">
-                                            Admin Info
-                                        </a>
-                                    </li>
-                                    <li class="px-5.5">
-                                        <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
-                                            href="{{ route('account-shipping') }}">
-                                            Shipping Details
-                                        </a>
-                                    </li>
-                                    <li class="px-5.5">
-                                        <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
-                                            href="{{ route('account-orders') }}">
-                                            Orders
-                                        </a>
-                                    </li>
+                                    @php
+                                        $user = auth()->user();
+                                    @endphp
+                                    @if ($user && $user->role === 'client')
+                                        <li class="px-5.5">
+                                            <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
+                                                href="{{ route('account-info') }}">
+                                                Personal Info
+                                            </a>
+                                        </li>
+                                        <li class="px-5.5">
+                                            <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
+                                                href="{{ route('account-shipping') }}">
+                                                Shipping Details
+                                            </a>
+                                        </li>
+                                        <li class="px-5.5">
+                                            <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
+                                                href="{{ route('account-orders') }}">
+                                                Orders
+                                            </a>
+                                        </li>
+                                    @endif
                                     <li class="px-5.5">
                                         <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
                                             href="{{ route('dashboard') }}">
                                             Dashboard
+                                        </a>
+                                    </li>
+                                    <li class="px-5.5">
+                                        <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
+                                            href="{{ route('admin-info') }}">
+                                            Admin Info
                                         </a>
                                     </li>
                                     <li class="px-5.5">
@@ -205,20 +210,19 @@
                                             Manage User
                                         </a>
                                     </li>
-                                    </li>
                                     <li class="px-5.5">
                                         <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
                                             href="{{ route('orders.history') }}">
                                             Order History
                                         </a>
                                     </li>
-                                                                        <li class="px-5.5">
+                                    <li class="px-5.5">
                                         <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
                                             href="{{ route('blogs.manage') }}">
                                             Blogs Manage
                                         </a>
                                     </li>
-                                     <li class="px-5.5">
+                                    <li class="px-5.5">
                                         <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
                                             href="{{ route('products.index') }}">
                                             Manage Products
@@ -231,6 +235,7 @@
                                         </a>
                                     </li>
                                 </ul>
+
                             </div>
                         @else
                             <div
