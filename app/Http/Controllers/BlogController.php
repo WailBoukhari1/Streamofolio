@@ -34,16 +34,31 @@ class BlogController extends Controller
     {
         // Validation
         $request->validate([
-            'title' => 'required',
-            'content' => 'required',
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Example validation for image upload
+            'category' => 'required|string|max:255', // Validation for category field
             // Add any other validation rules here
         ]);
 
-        // Create the blog
-        Blog::create($request->all());
+        // Upload the image
+        $imageName = time() . '.' . $request->thumbnail->extension();
+        $request->thumbnail->move(public_path('images'), $imageName);
 
-        return redirect()->route('admin.blogs-manage.index')->with('success', 'Blog created successfully.');
+        // Create the blog
+        Blog::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'thumbnail' => 'images/' . $imageName,
+            'category' => $request->category,
+            // Add any other fields here
+        ]);
+
+        return redirect()->route('blogs.manage')->with('success', 'Blog created successfully.');
     }
+
+    // Update the specified blog
+
 
     // Display the form to edit a specific blog
     public function edit(Blog $blog)
@@ -56,22 +71,37 @@ class BlogController extends Controller
     {
         // Validation
         $request->validate([
-            'title' => 'required',
-            'content' => 'required',
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'category' => 'required|string|max:255', // Validation for category field
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Updated validation for image upload
             // Add any other validation rules here
         ]);
 
         // Update the blog
-        $blog->update($request->all());
+        $blog->title = $request->title;
+        $blog->content = $request->content;
+        $blog->category = $request->category;
 
-        return redirect()->route('admin.blogs-manage.index')->with('success', 'Blog updated successfully.');
+        // Check if a new image is uploaded
+        if ($request->hasFile('thumbnail')) {
+            // Upload the new image
+            $imageName = time() . '.' . $request->thumbnail->extension();
+            $request->thumbnail->move(public_path('images'), $imageName);
+            $blog->thumbnail = 'images/' . $imageName;
+        }
+
+        $blog->save();
+
+        return redirect()->route('blogs.manage')->with('success', 'Blog updated successfully.');
     }
+
 
     // Delete the specified blog
     public function destroy(Blog $blog)
     {
         $blog->delete();
 
-        return redirect()->route('admin.blogs-manage.index')->with('success', 'Blog deleted successfully.');
+        return redirect()->route('blogs.manage')->with('success', 'Blog deleted successfully.');
     }
 }
