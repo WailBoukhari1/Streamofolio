@@ -8,7 +8,7 @@
                     <ul class="flex-wrap gap-3.5 lg:gap-4 xl:gap-6 self-center hidden lg:flex">
                         <li>
                             <a class="text-gray-900 transition-colors hover:text-primary dark:text-white dark:hover:text-primary"
-                                href="https://www.facebook.com/danfisher.dev/" title="Facebook">
+                                href="https://www.facebook.com/" title="Facebook">
                                 <svg class="w-3.5 xl:w-4 aspect-square" fill="currentColor">
                                     <use xlink:href="{{ asset('assets/img/main/social-icons.svg#facebook') }}"></use>
                                 </svg>
@@ -16,7 +16,7 @@
                         </li>
                         <li>
                             <a class="text-gray-900 transition-colors hover:text-primary dark:text-white dark:hover:text-primary"
-                                href="https://twitter.com/danfisher_dev" title="Twitter">
+                                href="https://twitter.com/" title="Twitter">
                                 <svg class="w-3.5 xl:w-4 aspect-square" fill="currentColor">
                                     <use xlink:href="{{ asset('assets/img/main/social-icons.svg#twitter') }}"></use>
                                 </svg>
@@ -24,7 +24,7 @@
                         </li>
                         <li>
                             <a class="text-gray-900 transition-colors hover:text-primary dark:text-white dark:hover:text-primary"
-                                href="https://instagram.com/dan.fisher.dev/" title="Instagram">
+                                href="https://instagram.com/" title="Instagram">
                                 <svg class="w-3.5 xl:w-4 aspect-square" fill="currentColor">
                                     <use xlink:href="{{ asset('assets/img/main/social-icons.svg#instagram') }}"></use>
                                 </svg>
@@ -88,12 +88,7 @@
                             <a href="{{ route('home') }}">
                                 <div
                                     class="relative inline-flex aspect-square w-11 items-center justify-center overflow-hidden rounded-full bg-primary lg:w-[50px]">
-                                    <svg class="relative aspect-[37/36] w-6 fill-white lg:w-[26px]" viewBox="0 0 37 36"
-                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M17 16L15 29.001L27 10.001H21L27.363 0H37L25 36H13L0 0H13L11 16H17Z">
-                                        </path>
-                                    </svg>
+                                    <img src="{{ asset('assets/img/main/logo.png') }}" alt="Streamofolio Logo" />
                                 </div>
                             </a>
                         </div>
@@ -215,6 +210,12 @@
                                         <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
                                             href="{{ route('orders.history') }}">
                                             Order History
+                                        </a>
+                                    </li>
+                                                                        <li class="px-5.5">
+                                        <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
+                                            href="{{ route('blogs.manage') }}">
+                                            Blogs Manage
                                         </a>
                                     </li>
                                      <li class="px-5.5">

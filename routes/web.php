@@ -77,7 +77,12 @@ Route::middleware(['auth.verify', 'admin'])->group(function () {
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
-
+    Route::get('/blogs-manage', [BlogController::class, 'index'])->name('blogs.manage');
+    Route::get('/blogs-manage/create', [BlogController::class, 'create'])->name('blogs.create');
+    Route::post('/blogs-manage', [BlogController::class, 'store'])->name('blogs.store');
+    Route::get('/blogs-manage/{blog}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
+    Route::put('/blogs-manage/{blog}', [BlogController::class, 'update'])->name('blogs.update');
+    Route::delete('/blogs-manage/{blog}', [BlogController::class, 'destroy'])->name('blogs.destroy');
 
 });
 Route::get('/banned', function () {

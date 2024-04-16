@@ -11,7 +11,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('Admin.products-manage.create');
+        return view('admin.products-manage.create');
     }
 
     public function store(Request $request)

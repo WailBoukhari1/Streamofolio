@@ -11,7 +11,6 @@ use App\Models\Gear;
 use App\Models\Order;
 use App\Models\Partner;
 use App\Models\Product;
-use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,13 +28,13 @@ class MainController extends Controller
         $bio = Bio::first();
 
         // Pass the gear items to the view
-        return view('User.home', compact('gearItems', 'user', 'admin', 'partners', 'bio'));
+        return view('pages.home', compact('gearItems', 'user', 'admin', 'partners', 'bio'));
     }
 
     public function affiliates()
     {
         $affiliates = Affiliate::all();
-        return view('User.affiliates', compact('affiliates'));
+        return view('pages.affiliates', compact('affiliates'));
     }
 
     public function cart()
@@ -65,14 +64,14 @@ class MainController extends Controller
             Session::put('total_after_discount', $totalAfterDiscount);
         }
 
-        return view('User.cart', compact('cartItems', 'cartTotal', 'shippingCost', 'promoDiscount', 'totalAfterDiscount'));
+        return view('pages.cart', compact('cartItems', 'cartTotal', 'shippingCost', 'promoDiscount', 'totalAfterDiscount'));
     }
 
 
 
     public function contact()
     {
-        return view('User.contact');
+        return view('pages.contact');
     }
 
     public function shop(Request $request)
@@ -89,7 +88,7 @@ class MainController extends Controller
 
         // Paginate the products
         $products = $productsQuery->paginate(9);
-        return view('User.shop', compact('products', 'categories'));
+        return view('pages.shop', compact('products', 'categories'));
     }
     public function singleProduct($id)
     {
@@ -100,7 +99,7 @@ class MainController extends Controller
         $totalRating = $reviews->sum('rating');
         $averageRating = $reviews->isEmpty() ? 0 : $totalRating / $reviews->count();
 
-        return view('User.single-product', compact('product', 'reviews', 'averageRating'));
+        return view('pages.single-product', compact('product', 'reviews', 'averageRating'));
     }
 
 
@@ -116,7 +115,7 @@ class MainController extends Controller
             $aliase = $admin->aliase;
         }
         return view(
-            'User.stream',
+            'pages.stream',
             compact(
                 'schedule',
                 'twitchUsername',
@@ -128,17 +127,17 @@ class MainController extends Controller
 
     public function accountInfo()
     {
-        return view('User.account-info');
+        return view('user.account-info');
     }
     public function adminInfo()
     {
-        return view('Admin.admin-info');
+        return view('admin.admin-info');
     }
     public function accountOrders()
     {
         $orders = Order::where('user_id', auth()->id())->orderBy('order_date', 'desc')->get();
 
-        return view('User.account-orders', compact('orders'));
+        return view('user.account-orders', compact('orders'));
     }
 
     public function accountShipping()
@@ -155,7 +154,7 @@ class MainController extends Controller
     public function account()
     {
 
-        return view('User.account');
+        return view('user.account');
     }
 
     public function checkout()
@@ -168,29 +167,29 @@ class MainController extends Controller
         } else {
             $shippingDetail = null;
         }
-        return view('User.checkout', compact('shippingDetail', 'cart'));
+        return view('pages.checkout', compact('shippingDetail', 'cart'));
     }
     // Admin
     public function dashboard()
     {
-        return view('Admin.dashboard');
+        return view('admin.dashboard');
     }
     public function manageOrders()
     {
         $orders = Order::where('status', 'pending')->get();
-        return view('Admin.orders-manage.index', compact('orders'));
+        return view('admin.orders-manage.index', compact('orders'));
     }
     public function orderHistory()
     {
         $orders = Order::whereNotIn('status', ['pending'])
             ->latest()
             ->get();
-        return view('Admin.orders-manage.history', compact('orders'));
+        return view('admin.orders-manage.history', compact('orders'));
     }
     public function manageUsers()
     {
         $users = User::where('role', 'client')->get();
-        return view('Admin.users-manage.index', compact('users'));
+        return view('admin.users-manage.index', compact('users'));
     }
     public function manageProducts()
     {
@@ -202,7 +201,7 @@ class MainController extends Controller
             $product->rating = $averageRating;
         }
 
-        return view('Admin.products-manage.index', compact('products'));
+        return view('admin.products-manage.index', compact('products'));
     }
     public function blogs()
     {
@@ -210,7 +209,7 @@ class MainController extends Controller
         $blogs = Blog::latest()->paginate(9);
         $categories =  $blogs->pluck('category')->unique(); 
 
-        return view('User.blogs', compact('blogs', 'categories'));
+        return view('pages.blogs', compact('blogs', 'categories'));
     }
 
     public function blogShow($id)
@@ -218,7 +217,7 @@ class MainController extends Controller
         // Fetch the specific blog by its ID from the database
         $blog = Blog::findOrFail($id);
 
-        return view('User.blogs-single', compact('blog'));
+        return view('pages.blogs-single', compact('blog'));
     }
 }
 

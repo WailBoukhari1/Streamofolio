@@ -22,20 +22,23 @@ class GearFactory extends Factory
             'gaming-chair' => 'assets/img/main/samples/gear-5-170x170.jpg',
             'mousepad-mouse' => 'assets/img/main/samples/gear-6-170x170.jpg',
         ];
-
         $tags = array_keys($imageUrls);
         $brands = ['Brand A', 'Brand B', 'Brand C', 'Brand D', 'Brand E'];
 
-        // Get a random tag
-        $tag = $this->faker->randomElement($tags);
+        $brand = $this->faker->randomElement($brands);
+        $imageUrl = $imageUrls[$brand];
 
-        return [
-            'image' => $imageUrls[$tag],
-            'name' => $this->faker->sentence,
-            'tag' => $tag,
-            'brand' => $this->faker->randomElement($brands),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ];
+        if (Gear::where('image', $imageUrl)->exists()) {
+            return $this->definition();
+        } else {
+            return [
+                'image' => $imageUrl,
+                'name' => $this->faker->sentence,
+                'tag' => $this->faker->randomElement($tags),
+                'brand' => $brand,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
     }
 }
