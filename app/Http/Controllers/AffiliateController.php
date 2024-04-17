@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Affiliate;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AffiliateController extends Controller
 {
@@ -20,22 +22,30 @@ class AffiliateController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'stars' => 'required|integer|min:0|max:5',
-            'discount' => 'required|integer|min:0',
-            'link' => 'required|string',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        // $request->validate([
+        //     'title' => 'required|string|max:255',
+        //     'description' => 'required|string',
+        //     'stars' => 'required|integer|min:0|max:5',
+        //     'code' => 'required|string',
+        //     'discount' => 'required|integer|min:0',
+        //     'link' => 'required|string',
+        //     'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        // ]);
 
         $affiliate = new Affiliate();
-        $affiliate->fill($request->all());
+        $affiliate->title = $request->title;
+        $affiliate->description = $request->description;
+        $affiliate->stars = $request->stars;
+        $affiliate->code = $request->code;
+        $affiliate->discount = $request->discount;
+        $affiliate->link = $request->link;
 
         // Upload image if provided
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/images');
-            $affiliate->image = $imagePath;
+            // Store image without 'public/' prefix
+            $imageUrl = $request->file('image')->store('', 'public');
+            // Set the image URL
+            $affiliate->image = $imageUrl;
         }
 
         $affiliate->save();
@@ -57,6 +67,7 @@ class AffiliateController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'stars' => 'required|integer|min:0|max:5',
+            'code' => 'required|string',
             'discount' => 'required|integer|min:0',
             'link' => 'required|string',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -66,8 +77,8 @@ class AffiliateController extends Controller
 
         // Upload new image if provided
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/images');
-            $affiliate->image = $imagePath;
+            $imageUrl = $request->file('image')->store('images', 'public');
+            $affiliate->image = $imageUrl;
         }
 
         $affiliate->save();

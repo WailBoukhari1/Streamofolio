@@ -51,7 +51,6 @@ class BlogController extends Controller
             'content' => $request->content,
             'thumbnail' => 'images/' . $imageName,
             'category' => $request->category,
-            // Add any other fields here
         ]);
 
         return redirect()->route('blogs.manage')->with('success', 'Blog created successfully.');
