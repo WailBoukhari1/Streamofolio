@@ -170,10 +170,6 @@ class MainController extends Controller
         return view('pages.checkout', compact('shippingDetail', 'cart'));
     }
     // Admin
-    public function dashboard()
-    {
-        return view('admin.dashboard');
-    }
     public function manageOrders()
     {
         $orders = Order::where('status', 'pending')->get();

@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -14,6 +15,8 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
+
 
 
 
@@ -32,6 +35,7 @@ Route::get('/stream', [MainController::class, 'stream'])->name('stream');
 Route::get('/blogs', [MainController::class, 'blogs'])->name('blogs');
 Route::get('/blogs/{id}', [MainController::class, 'blogShow'])->name('blog.show');
 Route::get('/search', [BlogController::class, 'search'])->name('blogs.search');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 Route::middleware(['auth.verify', 'client' , 'banned'])->group(function () {
     Route::get('/account-info', [MainController::class, 'accountInfo'])->name('account-info');
@@ -52,15 +56,12 @@ Route::middleware(['auth.verify', 'client' , 'banned'])->group(function () {
     Route::get('/thank-you', [OrderController::class, 'thankyou'])->name('thankyou');
     Route::post('/cancel-order/{order}', [OrderController::class, 'cancelOrder'])->name('cancel.order');
     Route::delete('/delete-order/{order}', [OrderController::class, 'deleteOrder'])->name('delete.order');
-
 });
 
 Route::middleware(['auth.verify', 'admin'])->group(function () {
     
     Route::get('/admin-info', [MainController::class, 'adminInfo'])->name('admin-info');
     Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('admin.profile.update');
-
-    Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard');
     Route::get('/manage-users', [MainController::class, 'manageUsers'])->name('manage-users');
     Route::get('/manage-orders', [MainController::class, 'manageOrders'])->name('manage-orders');
     Route::get('/manage-orders', [MainController::class, 'manageOrders'])->name('manage-orders');

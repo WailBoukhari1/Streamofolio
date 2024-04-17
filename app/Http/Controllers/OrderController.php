@@ -12,6 +12,7 @@ class OrderController extends Controller
 {
     public function placeOrder(Request $request)
     {
+        // Create a new order instance
         $order = new Order();
         $order->user_id = auth()->id();
         $order->payment_method = $request['payment-method'];
@@ -22,12 +23,17 @@ class OrderController extends Controller
         $order->possible_shipping_date = $shippingDate;
         $order->possible_delivery_date = $deliveryDate;
 
+        // Calculate the total price after discount
         $order->total_price_after_discount = str_replace(',', '', $request->input('total_after_discount'));
 
+        // Set the order status to pending
         $order->status = 'pending';
+        $order->payment_status = 'pending';
 
+        // Save the order to the database
         $order->save();
 
+        // Save order items
         foreach ($request['order'] as $itemData) {
             $orderItem = new OrderItem([
                 'name' => $itemData['name'],
@@ -38,9 +44,20 @@ class OrderController extends Controller
             $order->items()->save($orderItem);
         }
 
+        // Set order ID in session and clear the cart
         Session::put('order_id', $order->id);
         Session::forget('cart');
-        return redirect()->route('thankyou')->with('success', 'Your order has been placed successfully!');
+
+        // Redirect to thank you page based on the payment method
+        if ($order->payment_method === 'paypal') {
+            // Redirect to PayPal payment page
+            return redirect()->route('thankyou')->with('success', 'Your order has been placed successfully!');
+        } elseif ($order->payment_method === 'cash') {
+            return redirect()->route('thankyou')->with('success', 'Your order has been placed successfully!');
+        } else {
+            // Handle invalid or unsupported payment method
+            return redirect()->back()->with('error', 'Invalid payment method selected.');
+        }
     }
     public function thankyou()
     {

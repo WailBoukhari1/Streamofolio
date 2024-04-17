@@ -10,7 +10,7 @@
                     <div class="flex gap-x-7.5 mb-3 items-start">
                         <figure>
                             @if (Auth::user()->image)
-                                <img src="{{ asset('storage/' . Auth::user()->image) }}" alt="Client Avatar">
+                                <img src="{{ asset('storage/' . Auth::user()->image) }}" alt="Client Avatar Exist">
                             @else
                                 <img src="{{ asset('assets/img/main/samples/user-4-80x80.jpg') }}" alt="Client Avatar">
                             @endif

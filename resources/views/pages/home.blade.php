@@ -114,7 +114,7 @@
 
             <div class="col-span-full md:col-span-6">
                 <figure class="relative isolate z-[1]">
-                    <img src="{{ $user->image ?? '' }}" alt="{{ $user->username ?? '' }}">
+                    <img src="{{ asset('storage/' . $user->image ?? '') }}" alt="{{ $user->username ?? '' }}">
 
                     <svg class="hidden md:block md:absolute md:-left-16 md:top-6 md:w-[370px] lg:w-[400px] xl:-left-32 xl:top-12 xl:w-[470px] aspect-[47/50] -z-10" fill="none" viewBox="0 0 470 500">
                         <defs>
@@ -224,7 +224,7 @@
                             <div class="mb-7 flex items-center gap-x-3">
                                 <figure class="flex-shrink-0 overflow-hidden rounded-full">
                                     <img class="aspect-square w-10 object-cover"
-                                        src="{{ $user->image ?? '' }}" alt="NekoMaGiX">
+                                        src="{{  asset('storage/' . $user->image ?? '') }}" alt="NekoMaGiX">
                                 </figure>
                                 <div class="flex-1">
                                     <h5
@@ -255,7 +255,7 @@
                             <div class="mb-7 flex items-center gap-x-3">
                                 <figure class="flex-shrink-0 overflow-hidden rounded-full">
                                     <img class="aspect-square w-10 object-cover"
-                                        src="{{ $user->image ?? '' }}" alt="NekoMaGiX">
+                                        src="{{  asset('storage/' . $user->image ?? '') }}" alt="NekoMaGiX">
                                 </figure>
                                 <div class="flex-1">
                                     <h5
@@ -290,7 +290,7 @@
                             <div class="mb-7 flex items-center gap-x-3">
                                 <figure class="flex-shrink-0 overflow-hidden rounded-full">
                                     <img class="aspect-square w-10 object-cover"
-                                        src="{{ $user->image ?? '' }}" alt="NekoMaGiX">
+                                        src="{{  asset('storage/' . $user->image ?? '') }}" alt="NekoMaGiX">
                                 </figure>
                                 <div class="flex-1">
                                     <h5
@@ -329,7 +329,7 @@
                             <div class="mb-7 flex items-center gap-x-3">
                                 <figure class="flex-shrink-0 overflow-hidden rounded-full">
                                     <img class="aspect-square w-10 object-cover"
-                                        src="{{ $user->image ?? '' }}" alt="NekoMaGiX">
+                                        src="{{  asset('storage/' . $user->image ?? '') }}" alt="NekoMaGiX">
                                 </figure>
                                 <div class="flex-1">
                                     <h5
@@ -360,7 +360,7 @@
                             <div class="mb-7 flex items-center gap-x-3">
                                 <figure class="flex-shrink-0 overflow-hidden rounded-full">
                                     <img class="aspect-square w-10 object-cover"
-                                        src="{{ $user->image ?? '' }}" alt="NekoMaGiX">
+                                        src="{{  asset('storage/' . $user->image ?? '') }}" alt="NekoMaGiX">
                                 </figure>
                                 <div class="flex-1">
                                     <h5

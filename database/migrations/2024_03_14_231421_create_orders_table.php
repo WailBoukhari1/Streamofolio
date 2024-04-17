@@ -19,6 +19,7 @@ return new class extends Migration
     $table->timestamp('possible_shipping_date');
     $table->timestamp('possible_delivery_date');
     $table->string('status')->default('pending');
+    $table->string('payment_status')->default('pending');
     $table->decimal('total_price_after_discount', 10, 2)->nullable();
     $table->timestamps();
             });

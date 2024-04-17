@@ -5,8 +5,9 @@
             <form class="grid grid-cols-12 gap-x-6 md:gap-x-7.5 content-start gap-y-12 lg:gap-y-24 xl:gap-y-28"
                 action="{{ route('place.order') }}" method="POST">
                 @csrf
-                <input type="hidden" name="total_after_discount" value="{{ number_format(Session::get('total_after_discount', 0), 2) }}">
-                 <div class="col-span-full lg:col-start-3 lg:col-span-8">
+                <input type="hidden" name="total_after_discount"
+                    value="{{ number_format(Session::get('total_after_discount', 0), 2) }}">
+                <div class="col-span-full lg:col-start-3 lg:col-span-8">
                     <div>
                         <div class="not-prose flex flex-row mb-9 sm:mb-12 md:mb-14 lg:mb-16 xl:mb-20 justify-center">
                             <div class="flex flex-col items-center">
@@ -33,7 +34,8 @@
                                 <p class="text-gray-900 dark:text-white">
                                     No shipping address details found.
                                 </p>
-                                <a href="{{ route('account-shipping') }}" class="text-primary hover:underline mt-2">Fill
+                                <a href="{{ route('account-shipping') }}"
+                                    class="text-primary hover:underline mt-2">Fill
                                     your Details</a>
                             @endif
                         </div>
@@ -105,7 +107,6 @@
                             </div>
                         </div>
 
-
                         <div class="mb-8">
                             <h3
                                 class="mb-8 text-xl font-bold leading-tight tracking-tighter uppercase text-gray-900 dark:text-white lg:mb-10 lg:text-2xl before:content-['.'] before:mr-[0.2em] before:text-primary">
@@ -115,8 +116,7 @@
                                     <label class="flex flex-wrap gap-x-3 hover:cursor-pointer" for="paypal">
                                         <input name="payment-method" id="paypal" type="radio"
                                             class="border-gray-500 h-4 w-4 text-primary checked:bg-transparent checked:border-primary checked:hover:bg-transparent checked:hover:border-primary transition-all duration-150 bg-transparent hover:cursor-pointer peer"
-                                            checked="checked"
-                                            value="paypal">
+                                            checked="checked" value="paypal">
                                         <span
                                             class="font-bold text-gray-900 dark:text-white leading-tight tracking-tighter uppercase">PayPal</span>
                                         <span
@@ -128,34 +128,6 @@
                                 </li>
 
                                 <li class="pb-6 lg:pb-9">
-                                    <label class="flex flex-wrap gap-x-3 hover:cursor-pointer" for="check-payments">
-                                        <input name="payment-method" id="check-payments" type="radio" value="check"
-                                            class="border-gray-500 h-4 w-4 text-primary checked:bg-transparent checked:border-primary checked:hover:bg-transparent checked:hover:border-primary transition-all duration-150 bg-transparent hover:cursor-pointer peer">
-                                        <span
-                                            class="font-bold text-gray-900 dark:text-white leading-tight tracking-tighter uppercase">Check
-                                            Payments</span>
-                                        <span
-                                            class="basis-full max-h-0 overflow-hidden peer-checked:max-h-28 duration-200 transition-[max-height]">
-                                            <span class="block pt-5">Please send a check to Store Name, Store Street,
-                                                Store Town, Store State / County, Store Postcode.</span>
-                                        </span>
-                                    </label>
-                                </li>
-                                <li class="pb-6 lg:pb-9">
-                                    <label class="flex flex-wrap gap-x-3 hover:cursor-pointer" for="bank-transfer">
-                                        <input name="payment-method" id="bank-transfer" type="radio" value="bank"
-                                            class="border-gray-500 h-4 w-4 text-primary checked:bg-transparent checked:border-primary checked:hover:bg-transparent checked:hover:border-primary transition-all duration-150 bg-transparent hover:cursor-pointer peer">
-                                        <span
-                                            class="font-bold text-gray-900 dark:text-white leading-tight tracking-tighter uppercase">Direct
-                                            Bank Transfer</span>
-                                        <span
-                                            class="basis-full max-h-0 overflow-hidden peer-checked:max-h-28 duration-200 transition-[max-height]">
-                                            <span class="block pt-5">Make your payment directly into our bank account.
-                                                Please use your Order ID as the payment reference. </span>
-                                        </span>
-                                    </label>
-                                </li>
-                                <li class="pb-6 lg:pb-9">
                                     <label class="flex flex-wrap gap-x-3 hover:cursor-pointer" for="cash-on-delivery">
                                         <input name="payment-method" id="cash-on-delivery" type="radio" value="cash"
                                             class="border-gray-500 h-4 w-4 text-primary checked:bg-transparent checked:border-primary checked:hover:bg-transparent checked:hover:border-primary transition-all duration-150 bg-transparent hover:cursor-pointer peer">
@@ -165,6 +137,18 @@
                                         <span
                                             class="basis-full max-h-0 overflow-hidden peer-checked:max-h-28 duration-200 transition-[max-height]">
                                             <span class="block pt-5">Pay with cash upon delivery.</span>
+                                        </span>
+                                    </label>
+                                </li>
+                                <li class="pb-6 lg:pb-9">
+                                    <label class="flex flex-wrap gap-x-3 hover:cursor-pointer" for="stripe">
+                                        <input name="payment-method" id="stripe" type="radio" value="stripe"
+                                            class="border-gray-500 h-4 w-4 text-primary checked:bg-transparent checked:border-primary checked:hover:bg-transparent checked:hover:border-primary transition-all duration-150 bg-transparent hover:cursor-pointer peer">
+                                        <span
+                                            class="font-bold text-gray-900 dark:text-white leading-tight tracking-tighter uppercase">Stripe</span>
+                                        <span
+                                            class="basis-full max-h-0 overflow-hidden peer-checked:max-h-28 duration-200 transition-[max-height]">
+                                            <span class="block pt-5">Pay securely with Stripe.</span>
                                         </span>
                                     </label>
                                 </li>

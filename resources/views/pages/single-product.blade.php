@@ -62,10 +62,17 @@
                         <form action="{{ route('cart.add') }}" method="POST">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <button type="submit"
-                                class="inline-flex text-center font-bold leading-none transition-colors uppercase justify-center gap-x-3 py-4 px-4 md:py-[18px] lg:px-8 text-sm text-white bg-primary hover:bg-primary/90 basis-full md:basis-1/2 lg:basis-2/5">
-                                + Add to cart
-                            </button>
+                            @if ($product->stock > 0)
+                                <button type="submit"
+                                    class="inline-flex text-center font-bold leading-none transition-colors uppercase justify-center gap-x-3 py-4 px-4 md:py-[18px] lg:px-8 text-sm text-white bg-primary hover:bg-primary/90 basis-full md:basis-1/2 lg:basis-2/5">
+                                    + Add to cart
+                                </button>
+                            @else
+                                <button type="button"
+                                    class="inline-flex text-center font-bold leading-none uppercase justify-center gap-x-3 py-4 px-4 md:py-[18px] lg:px-8 text-sm text-white bg-gray-400 cursor-not-allowed">
+                                    Out of Stock
+                                </button>
+                            @endif
                         </form>
                     </div>
 
