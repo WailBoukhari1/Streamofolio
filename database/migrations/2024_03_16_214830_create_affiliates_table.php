@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('stars')->default(0);
             $table->string('code')->nullable();
             $table->unsignedInteger('discount')->default(0);
-            $table->unsignedInteger('link')->default(0);
+            $table->string('link');
             $table->timestamps();
         });
     }

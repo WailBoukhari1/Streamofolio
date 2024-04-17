@@ -186,7 +186,6 @@
                                             </a>
                                         </li>
                                     @else
-
                                         <li class="px-5.5">
                                             <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
                                                 href="{{ route('admin-info') }}">
@@ -215,6 +214,12 @@
                                             <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
                                                 href="{{ route('blogs.manage') }}">
                                                 Blogs Manage
+                                            </a>
+                                        </li>
+                                        <li class="px-5.5">
+                                            <a class="flex flex-row-reverse items-center justify-between py-1.5 text-gray-900 dark:text-white transition-colors hover:text-primary dark:hover:text-primary"
+                                                href="{{ route('affiliates.index') }}">
+                                                Affiliate Manage
                                             </a>
                                         </li>
                                         <li class="px-5.5">

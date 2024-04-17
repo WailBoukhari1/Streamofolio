@@ -14,31 +14,24 @@ class GearFactory extends Factory
      */
     public function definition(): array
     {
-        $imageUrls = [
-            'headset' => 'assets/img/main/samples/gear-2-170x170.jpg',
-            'gamer-mouse' => 'assets/img/main/samples/gear-1-170x170.jpg',
-            'keyboard' => 'assets/img/main/samples/gear-3-170x170.jpg',
-            'screen' => 'assets/img/main/samples/gear-4-170x170.jpg',
-            'gaming-chair' => 'assets/img/main/samples/gear-5-170x170.jpg',
-            'mousepad-mouse' => 'assets/img/main/samples/gear-6-170x170.jpg',
+        $brandData = [
+            'Brand A' => ['tag' => 'headset', 'image' => 'assets/img/main/samples/gear-2-170x170.jpg'],
+            'Brand B' => ['tag' => 'gamer-mouse', 'image' => 'assets/img/main/samples/gear-1-170x170.jpg'],
+            'Brand C' => ['tag' => 'keyboard', 'image' => 'assets/img/main/samples/gear-3-170x170.jpg'],
+            'Brand D' => ['tag' => 'screen', 'image' => 'assets/img/main/samples/gear-4-170x170.jpg'],
+            'Brand E' => ['tag' => 'gaming-chair', 'image' => 'assets/img/main/samples/gear-5-170x170.jpg'],
         ];
-        $tags = array_keys($imageUrls);
-        $brands = ['Brand A', 'Brand B', 'Brand C', 'Brand D', 'Brand E'];
 
-        $brand = $this->faker->randomElement($brands);
-        $imageUrl = $imageUrls[$brand];
+        $brand = $this->faker->randomElement(array_keys($brandData));
 
-        if (Gear::where('image', $imageUrl)->exists()) {
-            return $this->definition();
-        } else {
-            return [
-                'image' => $imageUrl,
-                'name' => $this->faker->sentence,
-                'tag' => $this->faker->randomElement($tags),
-                'brand' => $brand,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
-        }
+        return [
+            'image' => $brandData[$brand]['image'],
+            'name' => $this->faker->sentence,
+            'tag' => $brandData[$brand]['tag'],
+            'brand' => $brand,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
     }
 }
+

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AffiliateController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -84,7 +86,12 @@ Route::middleware(['auth.verify', 'admin'])->group(function () {
     Route::get('/blogs-manage/{blog}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
     Route::put('/blogs-manage/{blog}', [BlogController::class, 'update'])->name('blogs.update');
     Route::delete('/blogs-manage/{blog}', [BlogController::class, 'destroy'])->name('blogs.destroy');
-
+    Route::get('/affiliates-manage', [AffiliateController::class, 'index'])->name('affiliates.index');
+    Route::get('/affiliates-manage/create',[AffiliateController::class, 'create'])->name('affiliates.create');
+    Route::post('/affiliates-manage',[AffiliateController::class, 'store'])->name('affiliates.store');
+    Route::get('/affiliates-manage/{affiliate}/edit',[AffiliateController::class, 'edit'])->name('affiliates.edit');
+    Route::put('/affiliates-manage/{affiliate}',[AffiliateController::class, 'update'])->name('affiliates.update');
+    Route::delete('/affiliates-manage/{affiliate}', [AffiliateController::class, 'destroy'])->name('affiliates.destroy');
 });
 Route::get('/banned', function () {
     return view('Auth.banned');

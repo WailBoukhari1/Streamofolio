@@ -13,15 +13,15 @@ class AffiliateFactory extends Factory
     protected $model = Affiliate::class;
 
     public function definition()
-    {
-        return [
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
-            'image' => 'assets/img/main/samples/affiliate-product-2.jpg',
-            'stars' => $this->faker->numberBetween(1, 5),
-            'code' => $this->faker->randomElement([null, 'MAGIX', 'SALE20', 'DISCOUNT']),
-            'discount' => $this->faker->randomElement([0, 10, 15, 20]),
-            'link' => $this->faker->numberBetween(100, 1000),
-        ];
+        {
+            return [
+                'title' => $this->faker->sentence,
+                'description' => $this->faker->paragraph,
+                'image' => 'assets/img/main/samples/affiliate-product-2.jpg',
+                'stars' => $this->faker->numberBetween(1, 5),
+                'code' => $this->faker->randomElement([null, 'MAGIX', 'SALE20', 'DISCOUNT']),
+                'discount' => $this->faker->randomElement([0, 10, 15, 20]),
+                'link' => 'https://test.example.com/',
+            ];
     }
 }
