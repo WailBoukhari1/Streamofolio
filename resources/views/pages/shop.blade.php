@@ -8,12 +8,12 @@
                     <ul
                         class="flex flex-wrap justify-center gap-x-4 lg:gap-x-9 text-base lg:text-lg font-bold uppercase tracking-tight">
                         <li>
-                            <a class="text-gray-900 {{ !Request::has('category') ? 'text-primary dark:text-primary' : 'text-gray-900 hover:text-primary dark:text-white dark:hover:text-primary transition-colors' }} transition-colors"
+                            <a class="text-gray-900 {{ !$selectedCategory ? 'text-primary dark:text-primary' : 'text-gray-900 hover:text-primary dark:text-white dark:hover:text-primary transition-colors' }} transition-colors"
                                 href="{{ route('shop') }}">All</a>
                         </li>
                         @foreach ($categories as $category)
                             <li>
-                                <a class="@if (Request::has('category') && urldecode(Request::input('category')) == $category) text-primary dark:text-primary underline @else text-gray-900 hover:text-primary dark:text-white dark:hover:text-primary transition-colors @endif"
+                                <a class="@if ($selectedCategory && $selectedCategory == $category) text-primary dark:text-primary underline @else text-gray-900 hover:text-primary dark:text-white dark:hover:text-primary transition-colors @endif"
                                     href="{{ route('shop', ['category' => $category]) }}">
                                     {{ $category }}
                                 </a>
@@ -82,7 +82,7 @@
                         </li>
                     @else
                         <li class="flex items-center">
-                            <a href="{{ $products->previousPageUrl() }}"
+                            <a href="{{ $products->previousPageUrl() . ($selectedCategory ? '&category=' . $selectedCategory : '') }}"
                                 class="inline-flex justify-center items-center w-8 lg:w-12.5 aspect-square bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-primary transition-colors hover:text-gray-900 dark:hover:text-gray-900">
                                 <svg class="w-2.5 aspect-square rotate-180" fill="currentColor">
                                     <use xlink:href="assets/img/main/sprite.svg#arrow-right"></use>
@@ -94,7 +94,7 @@
                     <!-- Page Number Links -->
                     @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
                         <li>
-                            <a href="{{ $url }}"
+                            <a href="{{ $url . ($selectedCategory ? '&category=' . $selectedCategory : '') }}"
                                 class="inline-flex justify-center items-center w-8 lg:w-12.5 aspect-square font-bold transition-colors bg-gray-{{ $page == $products->currentPage() ? '50' : '100' }} dark:bg-gray-{{ $page == $products->currentPage() ? '700' : '800' }} hover:bg-primary dark:hover:bg-primary text-gray-{{ $page == $products->currentPage() ? '900' : '700' }} dark:text-white hover:text-white dark:hover:text-white">{{ $page }}</a>
                         </li>
                     @endforeach
@@ -102,7 +102,7 @@
                     <!-- Next Page Link -->
                     @if ($products->hasMorePages())
                         <li class="flex items-center">
-                            <a href="{{ $products->nextPageUrl() }}"
+                            <a href="{{ $products->nextPageUrl() . ($selectedCategory ? '&category=' . $selectedCategory : '') }}"
                                 class="inline-flex justify-center items-center w-8 lg:w-12.5 aspect-square bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-primary transition-colors hover:text-gray-900 dark:hover:text-gray-900">
                                 <svg class="w-2.5 aspect-square" fill="currentColor">
                                     <use xlink:href="assets/img/main/sprite.svg#arrow-right"></use>

@@ -47,33 +47,3 @@ if (document.querySelector('.js-vv-modal')) {
     });
   });
 }
-
-// Product Slider
-const swiperProductsNav = new Swiper('.js-vv-product-swiper-nav', {
-  spaceBetween: 20,
-  slidesPerView: 4,
-  watchSlidesProgress: true,
-  loop: false,
-  direction: 'vertical',
-
-  breakpoints: {
-    576: {
-      slidesPerView: 4,
-    },
-    768: {
-      spaceBetween: 20,
-      slidesPerView: 4,
-    },
-    992: {
-      spaceBetween: 20,
-      slidesPerView: 4,
-    },
-  },
-});
-
-const swiperProducts = new Swiper('.js-vv-product-swiper', {
-  loop: false,
-  thumbs: {
-    swiper: swiperProductsNav
-  },
-});

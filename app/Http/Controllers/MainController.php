@@ -76,6 +76,7 @@ class MainController extends Controller
 
     public function shop(Request $request)
     {
+        // Get all categories
         $categories = Product::distinct()->pluck('category');
 
         // Initialize products query
@@ -86,10 +87,16 @@ class MainController extends Controller
             $productsQuery->where('category', $request->category);
         }
 
-        // Paginate the products
-        $products = $productsQuery->paginate(9);
-        return view('pages.shop', compact('products', 'categories'));
+        // Paginate the products while preserving the selected category
+        $products = $productsQuery->paginate(9)->withQueryString();
+
+        // Pass the selected category to the view
+        $selectedCategory = $request->input('category');
+
+        return view('pages.shop', compact('products', 'categories', 'selectedCategory'));
     }
+
+
     public function singleProduct($id)
     {
         $product = Product::findOrFail($id);
@@ -203,7 +210,7 @@ class MainController extends Controller
     {
         // Fetch all blogs from the database
         $blogs = Blog::latest()->paginate(9);
-        $categories =  $blogs->pluck('category')->unique(); 
+        $categories = $blogs->pluck('category')->unique();
 
         return view('pages.blogs', compact('blogs', 'categories'));
     }
