@@ -14,8 +14,10 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ShippingController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -58,6 +60,7 @@ Route::middleware(['auth.verify', 'client' , 'banned'])->group(function () {
     Route::get('/thank-you', [OrderController::class, 'thankyou'])->name('thankyou');
     Route::post('/cancel-order/{order}', [OrderController::class, 'cancelOrder'])->name('cancel.order');
     Route::delete('/delete-order/{order}', [OrderController::class, 'deleteOrder'])->name('delete.order');
+
 });
 
 Route::middleware(['auth.verify', 'admin'])->group(function () {

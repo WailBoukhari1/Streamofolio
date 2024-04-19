@@ -7,11 +7,15 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Stripe\Stripe;
 
 class OrderController extends Controller
 {
     public function placeOrder(Request $request)
     {
+        // Set your Stripe API key
+        Stripe::setApiKey(config('stripe.sk'));
+
         // Create a new order instance
         $order = new Order();
         $order->user_id = auth()->id();
@@ -44,21 +48,41 @@ class OrderController extends Controller
             $order->items()->save($orderItem);
         }
 
-        // Set order ID in session and clear the cart
-        Session::put('order_id', $order->id);
-        Session::forget('cart');
-
         // Redirect to thank you page based on the payment method
-        if ($order->payment_method === 'paypal') {
-            // Redirect to PayPal payment page
-            return redirect()->route('thankyou')->with('success', 'Your order has been placed successfully!');
+        if ($order->payment_method === 'stripe') {
+            // Create a Checkout Session with Stripe
+            $session = \Stripe\Checkout\Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [
+                    [
+                        'price_data' => [
+                            'currency' => 'usd',
+                            'unit_amount' => $order->total_price_after_discount * 100, // Amount in cents
+                            'product_data' => [
+                                'name' => 'Your Product', // Update with your product name
+                            ],
+                        ],
+                        'quantity' => 1,
+                    ],
+                ],
+                'mode' => 'payment',
+                'success_url' => route('thankyou') . '?success=true', // Redirect URL after successful payment
+                'cancel_url' => route('thankyou') . '?cancelled=true', // Redirect URL if payment is cancelled
+            ]);
+
+            $order->payment_status = 'paid';
+
+            return redirect()->to($session->url);
         } elseif ($order->payment_method === 'cash') {
+            $order->payment_status = 'to be paid';
+
             return redirect()->route('thankyou')->with('success', 'Your order has been placed successfully!');
         } else {
             // Handle invalid or unsupported payment method
             return redirect()->back()->with('error', 'Invalid payment method selected.');
         }
     }
+
     public function thankyou()
     {
 

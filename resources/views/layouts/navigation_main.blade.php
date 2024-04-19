@@ -259,6 +259,9 @@
                                 </ul>
                             </div>
                         @endif
+                        @php
+                            $user = auth()->user();
+                        @endphp
                         @if ($user && $user->role === 'client')
                             <div
                                 class="relative [&>.sub-menu]:lg:hover:visible [&>.sub-menu]:hover:animate-popper-pop-in [&>.sub-menu]:lg:hover:opacity-100 lg:-mr-2">
@@ -379,7 +382,7 @@
                                     <!-- Cart Buttons -->
                                     <div class="flex w-full gap-4.5 px-7 pt-9">
                                         <a href="{{ route('cart') }}"
-                                            class="inline-flex text-center font-bold leading-none transition-colors uppercase justify-center gap-x-3 py-3 px-4 md:py-[13px] lg:px-7 text-sm text-gray-625 ring-1 ring-inset ring-gray-625 bg-transparent hover:bg-primary hover:text-white hover:ring-primary flex-1">
+                                                class="inline-flex text-center font-bold leading-none transition-colors uppercase justify-center gap-x-3 py-3 px-4 md:py-[13px] lg:px-7 text-sm text-white bg-primary hover:bg-primary/90 flex-1">
                                             Go to cart
 
                                         </a>
@@ -392,15 +395,6 @@
                                                 Cart</button>
                                         </form>
 
-                                    </div>
-
-                                    <div class="flex w-full gap-4.5 px-7 pt-4">
-                                        <form action="{{ route('checkout') }}" method="POST">
-                                            @csrf
-                                            <button type="submit"
-                                                class="inline-flex text-center font-bold leading-none transition-colors uppercase justify-center gap-x-3 py-3 px-4 md:py-[13px] lg:px-7 text-sm text-white bg-primary hover:bg-primary/90 flex-1">
-                                                Checkout</button>
-                                        </form>
                                     </div>
 
                                     <!-- Cart Buttons / End -->

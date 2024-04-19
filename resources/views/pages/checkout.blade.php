@@ -113,21 +113,6 @@
                                 Payment Methods</h3>
                             <ul>
                                 <li class="pb-6 lg:pb-9">
-                                    <label class="flex flex-wrap gap-x-3 hover:cursor-pointer" for="paypal">
-                                        <input name="payment-method" id="paypal" type="radio"
-                                            class="border-gray-500 h-4 w-4 text-primary checked:bg-transparent checked:border-primary checked:hover:bg-transparent checked:hover:border-primary transition-all duration-150 bg-transparent hover:cursor-pointer peer"
-                                            checked="checked" value="paypal">
-                                        <span
-                                            class="font-bold text-gray-900 dark:text-white leading-tight tracking-tighter uppercase">PayPal</span>
-                                        <span
-                                            class="basis-full max-h-0 overflow-hidden peer-checked:max-h-28 duration-200 transition-[max-height]">
-                                            <span class="block pt-5">Pay easily using your Paypal account, with no
-                                                additional fees!</span>
-                                        </span>
-                                    </label>
-                                </li>
-
-                                <li class="pb-6 lg:pb-9">
                                     <label class="flex flex-wrap gap-x-3 hover:cursor-pointer" for="cash-on-delivery">
                                         <input name="payment-method" id="cash-on-delivery" type="radio" value="cash"
                                             class="border-gray-500 h-4 w-4 text-primary checked:bg-transparent checked:border-primary checked:hover:bg-transparent checked:hover:border-primary transition-all duration-150 bg-transparent hover:cursor-pointer peer">
