@@ -259,150 +259,156 @@
                                 </ul>
                             </div>
                         @endif
-                        <div
-                            class="relative [&>.sub-menu]:lg:hover:visible [&>.sub-menu]:hover:animate-popper-pop-in [&>.sub-menu]:lg:hover:opacity-100 lg:-mr-2">
-                            <a class="relative block py-4 px-1 sm:px-2" href="{{ route('cart') }}">
-                                <svg role="img" class="h-6 w-6 fill-gray-900 dark:fill-white">
-                                    <use xlink:href="{{ asset('assets/img/main/sprite.svg#shopping-basket') }}"></use>
-                                </svg>
-                                <span
-                                    class="absolute top-1 -right-2 text-3xs font-bold leading-none w-4.5 h-4.5 rounded-full bg-primary inline-flex justify-center items-center">
-                                    {{ count(session('cart', [])) }}
-                                </span>
-                            </a>
-
+                        @if ($user && $user->role === 'client')
                             <div
-                                class="sub-menu invisible absolute right-2 z-20 w-[360px] origin-top-right bg-white dark:bg-gray-700 py-9 text-gray-900 dark:text-white opacity-0 shadow-2xl transition-all">
-                                <!-- Products -->
+                                class="relative [&>.sub-menu]:lg:hover:visible [&>.sub-menu]:hover:animate-popper-pop-in [&>.sub-menu]:lg:hover:opacity-100 lg:-mr-2">
+                                <a class="relative block py-4 px-1 sm:px-2" href="{{ route('cart') }}">
+                                    <svg role="img" class="h-6 w-6 fill-gray-900 dark:fill-white">
+                                        <use xlink:href="{{ asset('assets/img/main/sprite.svg#shopping-basket') }}">
+                                        </use>
+                                    </svg>
+                                    <span
+                                        class="absolute top-1 -right-2 text-3xs font-bold leading-none w-4.5 h-4.5 rounded-full bg-primary inline-flex justify-center items-center">
+                                        {{ count(session('cart', [])) }}
+                                    </span>
+                                </a>
 
-                                <ul class="flex flex-col gap-y-4.5 text-sm">
-                                    @if (session()->has('cart'))
-                                        @foreach (session('cart') as $key => $item)
-                                            @if (is_array($item))
-                                                <li class="flex gap-4.5 px-7 text-gray" data-id="{{ $item['id'] }}"
-                                                    data-key="{{ $key }}"
-                                                    data-quantity="{{ $item['quantity'] }}">
-                                                    <!-- Thumb -->
-                                                    <figure class="shrink-0">
-                                                        <a class="group"
-                                                            href="{{ route('single-product', $item['id']) }}">
-                                                            <img class="transition-opacity duration-300 group-hover:opacity-75"
-                                                                style="width: 60px;"
-                                                                src="{{ asset($item['thumbnail']) }}"
-                                                                alt="{{ $item['name'] }}">
-                                                        </a>
-                                                    </figure>
-                                                    <!-- Thumb / End -->
+                                <div
+                                    class="sub-menu invisible absolute right-2 z-20 w-[360px] origin-top-right bg-white dark:bg-gray-700 py-9 text-gray-900 dark:text-white opacity-0 shadow-2xl transition-all">
+                                    <!-- Products -->
 
-                                                    <!-- Product Body -->
-                                                    <div class="flex flex-grow flex-col gap-1">
-
-                                                        <!-- Title -->
-                                                        <h4 class="font-bold leading-none uppercase tracking-tight">
-                                                            <a class="text-gray-900 transition-colors hover:text-primary dark:text-white dark:hover:text-primary"
+                                    <ul class="flex flex-col gap-y-4.5 text-sm">
+                                        @if (session()->has('cart'))
+                                            @foreach (session('cart') as $key => $item)
+                                                @if (is_array($item))
+                                                    <li class="flex gap-4.5 px-7 text-gray"
+                                                        data-id="{{ $item['id'] }}" data-key="{{ $key }}"
+                                                        data-quantity="{{ $item['quantity'] }}">
+                                                        <!-- Thumb -->
+                                                        <figure class="shrink-0">
+                                                            <a class="group"
                                                                 href="{{ route('single-product', $item['id']) }}">
-                                                                {{ $item['name'] }}
+                                                                <img class="transition-opacity duration-300 group-hover:opacity-75"
+                                                                    style="width: 60px;"
+                                                                    src="{{ asset($item['thumbnail']) }}"
+                                                                    alt="{{ $item['name'] }}">
                                                             </a>
-                                                        </h4>
-                                                        <!-- Title / End -->
+                                                        </figure>
+                                                        <!-- Thumb / End -->
 
-                                                        <!-- Price -->
-                                                        <div
-                                                            class="uppercase font-bold tracking-tight leading-snug text-gray-900 dark:text-white">
-                                                            <span class="text-primary">${{ $item['price'] }}</span> x
-                                                            <span class="quantity">{{ $item['quantity'] }}</span>
-                                                        </div>
-                                                        <!-- Price / End -->
+                                                        <!-- Product Body -->
+                                                        <div class="flex flex-grow flex-col gap-1">
 
-                                                        <!-- Increment / Decrement buttons -->
-                                                        <div class="flex gap-2">
-                                                            <button class="btn-increment">+</button>
-                                                            <button class="btn-decrement">-</button>
-                                                        </div>
-                                                        <!-- Increment / Decrement buttons / End -->
+                                                            <!-- Title -->
+                                                            <h4
+                                                                class="font-bold leading-none uppercase tracking-tight">
+                                                                <a class="text-gray-900 transition-colors hover:text-primary dark:text-white dark:hover:text-primary"
+                                                                    href="{{ route('single-product', $item['id']) }}">
+                                                                    {{ $item['name'] }}
+                                                                </a>
+                                                            </h4>
+                                                            <!-- Title / End -->
 
-                                                        <!-- Rating -->
-                                                        <div
-                                                            class="flex items-center gap-x-4 relative text-sm leading-none">
-                                                            <div class="relative inline-flex leading-none gap-1">
-                                                                @for ($i = 0; $i < 5; $i++)
-                                                                    @if ($i < $item['rating'])
-                                                                        <svg role="img"
-                                                                            class="h-2.5 w-2.5 fill-gray-200 dark:fill-white/20">
-                                                                            <use
-                                                                                xlink:href="assets/img/str/sprite.svg#star">
-                                                                            </use>
-                                                                        </svg>
-                                                                    @else
-                                                                        <svg role="img"
-                                                                            class="h-2.5 w-2.5 fill-gray-900 dark:fill-white">
-                                                                            <use
-                                                                                xlink:href="assets/img/str/sprite.svg#star">
-                                                                            </use>
-                                                                        </svg>
-                                                                    @endif
-                                                                @endfor
+                                                            <!-- Price -->
+                                                            <div
+                                                                class="uppercase font-bold tracking-tight leading-snug text-gray-900 dark:text-white">
+                                                                <span
+                                                                    class="text-primary">${{ $item['price'] }}</span>
+                                                                x
+                                                                <span class="quantity">{{ $item['quantity'] }}</span>
                                                             </div>
+                                                            <!-- Price / End -->
+
+                                                            <!-- Increment / Decrement buttons -->
+                                                            <div class="flex gap-2">
+                                                                <button class="btn-increment">+</button>
+                                                                <button class="btn-decrement">-</button>
+                                                            </div>
+                                                            <!-- Increment / Decrement buttons / End -->
+
+                                                            <!-- Rating -->
+                                                            <div
+                                                                class="flex items-center gap-x-4 relative text-sm leading-none">
+                                                                <div class="relative inline-flex leading-none gap-1">
+                                                                    @for ($i = 0; $i < 5; $i++)
+                                                                        @if ($i < $item['rating'])
+                                                                            <svg role="img"
+                                                                                class="h-2.5 w-2.5 fill-gray-200 dark:fill-white/20">
+                                                                                <use
+                                                                                    xlink:href="assets/img/str/sprite.svg#star">
+                                                                                </use>
+                                                                            </svg>
+                                                                        @else
+                                                                            <svg role="img"
+                                                                                class="h-2.5 w-2.5 fill-gray-900 dark:fill-white">
+                                                                                <use
+                                                                                    xlink:href="assets/img/str/sprite.svg#star">
+                                                                                </use>
+                                                                            </svg>
+                                                                        @endif
+                                                                    @endfor
+                                                                </div>
+                                                            </div>
+
                                                         </div>
+                                                        <!-- Product Body / End -->
+                                                        <!-- Remove Product -->
+                                                        <form action="{{ route('cart.delete', $key) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button
+                                                                class="group inline-flex h-5 w-5 items-center justify-center">
+                                                                <svg role="img"
+                                                                    class="h-2 w-2 fill-gray-900 transition-colors group-hover:fill-primary dark:fill-white dark:group-hover:fill-primary">
+                                                                    <use xlink:href="assets/img/main/sprite.svg#close">
+                                                                    </use>
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                        <!-- Remove Product / End -->
 
-                                                    </div>
-                                                    <!-- Product Body / End -->
-                                                    <!-- Remove Product -->
-                                                    <form action="{{ route('cart.delete', $key) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button
-                                                            class="group inline-flex h-5 w-5 items-center justify-center">
-                                                            <svg role="img"
-                                                                class="h-2 w-2 fill-gray-900 transition-colors group-hover:fill-primary dark:fill-white dark:group-hover:fill-primary">
-                                                                <use xlink:href="assets/img/main/sprite.svg#close">
-                                                                </use>
-                                                            </svg>
-                                                        </button>
-                                                    </form>
-                                                    <!-- Remove Product / End -->
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                        @else
+                                            <p class="p-7 text-center text-7sm">Cart is empty</p>
+                                        @endif
+                                    </ul>
 
-                                                </li>
-                                            @endif
-                                        @endforeach
-                                    @else
-                                        <p class="p-7 text-center text-7sm">Cart is empty</p>
-                                    @endif
-                                </ul>
+                                    <!-- Cart Buttons -->
+                                    <div class="flex w-full gap-4.5 px-7 pt-9">
+                                        <a href="{{ route('cart') }}"
+                                            class="inline-flex text-center font-bold leading-none transition-colors uppercase justify-center gap-x-3 py-3 px-4 md:py-[13px] lg:px-7 text-sm text-gray-625 ring-1 ring-inset ring-gray-625 bg-transparent hover:bg-primary hover:text-white hover:ring-primary flex-1">
+                                            Go to cart
 
-                                <!-- Cart Buttons -->
-                                <div class="flex w-full gap-4.5 px-7 pt-9">
-                                    <a href="{{ route('cart') }}"
-                                        class="inline-flex text-center font-bold leading-none transition-colors uppercase justify-center gap-x-3 py-3 px-4 md:py-[13px] lg:px-7 text-sm text-gray-625 ring-1 ring-inset ring-gray-625 bg-transparent hover:bg-primary hover:text-white hover:ring-primary flex-1">
-                                        Go to cart
+                                        </a>
+                                        <!-- Clear Cart Button -->
 
-                                    </a>
-                                    <!-- Clear Cart Button -->
+                                        <form action="{{ route('cart.clear') }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                class="inline-flex text-center font-bold leading-none transition-colors uppercase justify-center gap-x-3 py-3 px-4 md:py-[13px] lg:px-7 text-sm text-gray-625 ring-1 ring-inset ring-gray-625 bg-transparent hover:bg-primary hover:text-white hover:ring-primary flex-1">Clear
+                                                Cart</button>
+                                        </form>
 
-                                    <form action="{{ route('cart.clear') }}" method="POST">
-                                        @csrf
-                                        <button type="submit"
-                                            class="inline-flex text-center font-bold leading-none transition-colors uppercase justify-center gap-x-3 py-3 px-4 md:py-[13px] lg:px-7 text-sm text-gray-625 ring-1 ring-inset ring-gray-625 bg-transparent hover:bg-primary hover:text-white hover:ring-primary flex-1">Clear
-                                            Cart</button>
-                                    </form>
+                                    </div>
+
+                                    <div class="flex w-full gap-4.5 px-7 pt-4">
+                                        <form action="{{ route('checkout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                class="inline-flex text-center font-bold leading-none transition-colors uppercase justify-center gap-x-3 py-3 px-4 md:py-[13px] lg:px-7 text-sm text-white bg-primary hover:bg-primary/90 flex-1">
+                                                Checkout</button>
+                                        </form>
+                                    </div>
+
+                                    <!-- Cart Buttons / End -->
 
                                 </div>
-
-                                <div class="flex w-full gap-4.5 px-7 pt-4">
-                                    <form action="{{ route('checkout') }}" method="POST">
-                                        @csrf
-                                        <button type="submit"
-                                            class="inline-flex text-center font-bold leading-none transition-colors uppercase justify-center gap-x-3 py-3 px-4 md:py-[13px] lg:px-7 text-sm text-white bg-primary hover:bg-primary/90 flex-1">
-                                            Checkout</button>
-                                    </form>
-                                </div>
-
-                                <!-- Cart Buttons / End -->
 
                             </div>
-
-                        </div>
-
+                        @endif
                         <button class="js-menu-toggle -mr-2 ml-2 inline-flex py-4 px-2 sm:px-3 lg:hidden xl:px-4">
                             <svg role="img"
                                 class="js-menu-toggle-icon-open h-6 w-6 fill-gray-900 dark:fill-white">
@@ -559,8 +565,8 @@
             document.querySelectorAll('.btn-delete').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const key = this.getAttribute('data-key');
-                    // Here you can add logic to remove the product from the cart
-                    // For example: document.getElementById(`product_${key}`).remove();
+                    const quantityElement = document.getElementById(`quantity_${key}`);
+                    quantityElement.textContent = 0;
                 });
             });
         });
