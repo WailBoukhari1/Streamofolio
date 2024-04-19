@@ -14,7 +14,7 @@ class OrderController extends Controller
     public function placeOrder(Request $request)
     {
         // Set your Stripe API key
-        Stripe::setApiKey(config('stripe.sk'));
+        \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
         // Create a new order instance
         $order = new Order();
@@ -34,19 +34,17 @@ class OrderController extends Controller
         $order->status = 'pending';
         $order->payment_status = 'pending';
 
-        // Save the order to the database
-        $order->save();
-
-        // Save order items
+        // Save the order items temporarily
+        $orderItems = [];
         foreach ($request['order'] as $itemData) {
             $orderItem = new OrderItem([
                 'name' => $itemData['name'],
                 'quantity' => $itemData['quantity'],
                 'price' => $itemData['price'],
             ]);
-
-            $order->items()->save($orderItem);
+            $orderItems[] = $orderItem;
         }
+        $order->items()->saveMany($orderItems);
 
         // Redirect to thank you page based on the payment method
         if ($order->payment_method === 'stripe') {
@@ -66,15 +64,18 @@ class OrderController extends Controller
                     ],
                 ],
                 'mode' => 'payment',
-                'success_url' => route('thankyou') . '?success=true', // Redirect URL after successful payment
+                'success_url' => route('stripe.success'), // Redirect URL after successful payment
                 'cancel_url' => route('thankyou') . '?cancelled=true', // Redirect URL if payment is cancelled
             ]);
 
-            $order->payment_status = 'paid';
+            // Save the Stripe session ID with the order
+            $order->stripe_session_id = $session->id;
+            $order->save();
 
             return redirect()->to($session->url);
         } elseif ($order->payment_method === 'cash') {
-            $order->payment_status = 'to be paid';
+            // Save the order to the database
+            $order->save();
 
             return redirect()->route('thankyou')->with('success', 'Your order has been placed successfully!');
         } else {
@@ -82,6 +83,7 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'Invalid payment method selected.');
         }
     }
+
 
     public function thankyou()
     {
