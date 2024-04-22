@@ -155,7 +155,7 @@ class MainController extends Controller
             $shippingDetail = Auth::user()->shipping;
         }
 
-        return view('User.account-shipping', compact('shippingDetail'));
+        return view('user.account-shipping', compact('shippingDetail'));
     }
 
     public function account()

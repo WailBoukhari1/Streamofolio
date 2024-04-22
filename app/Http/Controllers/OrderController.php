@@ -34,17 +34,19 @@ class OrderController extends Controller
         $order->status = 'pending';
         $order->payment_status = 'pending';
 
-        // Save the order items temporarily
-        $orderItems = [];
+        // Save the order to the database
+        $order->save();
+
+        // Save order items
         foreach ($request['order'] as $itemData) {
             $orderItem = new OrderItem([
                 'name' => $itemData['name'],
                 'quantity' => $itemData['quantity'],
                 'price' => $itemData['price'],
             ]);
-            $orderItems[] = $orderItem;
+            // Associate the order item with the order
+            $order->items()->save($orderItem);
         }
-        $order->items()->saveMany($orderItems);
 
         // Redirect to thank you page based on the payment method
         if ($order->payment_method === 'stripe') {
@@ -68,21 +70,35 @@ class OrderController extends Controller
                 'cancel_url' => route('thankyou') . '?cancelled=true', // Redirect URL if payment is cancelled
             ]);
 
-            // Save the Stripe session ID with the order
+            // Update the order with the Stripe session ID
             $order->stripe_session_id = $session->id;
+            $order->status = 'processing'; // Update order status
+            $order->payment_status = 'paid'; // Update payment status
             $order->save();
 
+            // Clear the cart
+            Session::forget('cart');
+
+            // Redirect the user to the Stripe Checkout page
             return redirect()->to($session->url);
         } elseif ($order->payment_method === 'cash') {
-            // Save the order to the database
+            // Update order status
+            $order->status = 'processing';
+            $order->payment_status = 'to be paid';
             $order->save();
+
+            // Clear the cart
+            Session::forget('cart');
 
             return redirect()->route('thankyou')->with('success', 'Your order has been placed successfully!');
         } else {
-            // Handle invalid or unsupported payment method
+            // Rollback the order and associated items
+            $order->delete();
             return redirect()->back()->with('error', 'Invalid payment method selected.');
         }
     }
+
+
 
 
     public function thankyou()
@@ -106,7 +122,6 @@ class OrderController extends Controller
     }
     public function deleteOrder(Order $order)
     {
-        dd(123);
         // Check if the order belongs to the authenticated user
         if ($order->user_id != auth()->id()) {
             abort(403); // Unauthorized

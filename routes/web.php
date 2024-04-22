@@ -59,7 +59,11 @@ Route::middleware(['auth.verify', 'client' , 'banned'])->group(function () {
     Route::get('/thank-you', [OrderController::class, 'thankyou'])->name('thankyou');
     Route::post('/cancel-order/{order}', [OrderController::class, 'cancelOrder'])->name('cancel.order');
     Route::delete('/delete-order/{order}', [OrderController::class, 'deleteOrder'])->name('delete.order');
-
+    Route::get('/stripe/success', function () {
+        // This is the action to be taken after a successful payment
+        // You can customize this logic based on your application's requirements
+        return redirect()->route('thankyou')->with('success', 'Payment successful!');
+    })->name('stripe.success');
 });
 
 Route::middleware(['auth.verify', 'admin'])->group(function () {

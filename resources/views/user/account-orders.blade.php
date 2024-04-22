@@ -61,6 +61,9 @@
                                     @elseif($order->status == 'processing')
                                         <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-700 text-white">Processing</span>
+                                    @elseif($order->status == 'shipping')
+                                        <span
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-500 text-white">Shipping</span>
                                     @elseif($order->status == 'completed')
                                         <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-500 text-white">Completed</span>
@@ -91,7 +94,7 @@
                                             <button type="submit"
                                                 class="bg-red-500 hover:bg-primary text-white font-bold py-2 px-4 rounded">Delete</button>
                                         </form>
-                                    @elseif ($order->status == 'processing')
+                                    @elseif ($order->status == 'shipping')
                                         <form action="#" method="POST">
                                             @csrf
                                             <button type="submit"

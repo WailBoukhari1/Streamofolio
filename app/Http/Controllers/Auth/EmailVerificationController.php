@@ -37,14 +37,14 @@ class EmailVerificationController extends Controller
         }
 
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->route('dashboard')->withErrors(['message' => 'Email already verified']);
+            return redirect()->route('home')->withErrors(['message' => 'Email already verified']);
         }
 
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
 
-        return redirect()->route('dashboard')->with('status', 'Email successfully verified');
+        return redirect()->route('home')->with('status', 'Email successfully verified');
     }
 
 }
