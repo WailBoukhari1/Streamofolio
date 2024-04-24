@@ -53,7 +53,7 @@
                                     <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
                                         <ul>
                                             @foreach ($order->items as $item)
-                                            - <li>{{ $item->name }} (Qty: {{ $item->quantity }})</li>
+                                            <li>{{ $item->name }} (Qty: {{ $item->quantity }})</li>
                                             @endforeach
                                         </ul>
                                     </td>
@@ -81,7 +81,7 @@
                                             <form action="{{ route('orders-validate', $order->id) }}" method="POST">
                                                 @csrf
                                                 <button type="submit"
-                                                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Validate</button>
+                                                    class="bg-green-500 hover:bg-green-700 font-bold py-2 px-4 rounded text-gray-800 dark:text-white">Validate</button>
                                             </form>
                                     </td>
                                 </tr>

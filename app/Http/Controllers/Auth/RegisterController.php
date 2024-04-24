@@ -48,7 +48,7 @@ class RegisterController extends Controller
             if (!$user->hasVerifiedEmail()) {
                 return redirect()->route('verification.notice');
             } else {
-                return redirect()->route('home');
+                return redirect()->route('account');
             }
         }
 

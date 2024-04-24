@@ -4,25 +4,26 @@
 
             <nav
                 class="mb-7 border-b border-gray-50 pb-6 dark:border-gray-600 sm:mb-8 sm:pb-7 md:mb-10 md:pb-8 lg:mb-12 lg:pb-10 xl:mb-14 xl:pb-12">
-                <ul
+                     <ul
                     class="flex flex-col flex-wrap gap-y-4 gap-x-6 xl:gap-x-10 font-bold uppercase tracking-tighter sm:flex-row sm:justify-center md:text-lg">
                     <li>
                         <a class="transition-all text-gray-900 hover:text-primary dark:text-white dark:hover:text-primary"
-                            href="_str-account-info.html">Personal Info</a>
+                            href="{{ route('account-info') }}">Personal Info</a>
                     </li>
 
                     <li>
-                        <a class="transition-all text-primary" href="_str-account-shipping.html">Shipping Details</a>
+                        <a class="transition-all text-primary" href="{{ route('account-shipping') }}">Shipping Details</a>
                     </li>
                     <li>
                         <a class="transition-all text-gray-900 hover:text-primary dark:text-white dark:hover:text-primary"
-                            href="_str-account-orders.html">Orders</a>
+                            href="{{ route('account-orders') }}">Orders</a>
                     </li>
                     <li>
                         <a class="transition-all text-gray-900 hover:text-primary dark:text-white dark:hover:text-primary"
-                            href="#.html">Logout</a>
+                            href="{{ route('logout') }}">Logout</a>
                     </li>
                 </ul>
+            
             </nav>
 
             <form class="grid grid-cols-12 gap-y-7 gap-x-5 md:gap-x-6 lg:gap-x-7.5"

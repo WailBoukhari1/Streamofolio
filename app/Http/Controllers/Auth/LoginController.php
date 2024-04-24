@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,6 +28,12 @@ class LoginController extends Controller
 
         $credentials = $request->only('email', 'password');
 
+        // Check if email exists in the database
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return back()->withErrors(['email' => 'The email does not exist in our records.'])->withInput($request->only('email'));
+        }
+
         if (Auth::attempt($credentials)) {
             // Check if the user is banned
             if (Auth::user()->banned_at !== null) {
@@ -39,9 +46,10 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'These credentials do not match our records.',
+            'password' => 'The password provided is incorrect.',
         ])->withInput($request->only('email'));
     }
+
 
     public function logout(Request $request)
     {

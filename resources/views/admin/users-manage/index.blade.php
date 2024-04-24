@@ -32,7 +32,7 @@
                         @foreach ($users as $user)
                             <tr>
                                 <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
-                                    {{ $user->client->first_name }} {{ $user->client->last_name }}
+                                    {{ $user->first_name }} {{ $user->last_name }}
                                 </td>
                                 <td class="px-6 py-4 text-lg text-gray-900 dark:text-white">
                                     {{ $user->email }}

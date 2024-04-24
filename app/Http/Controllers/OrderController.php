@@ -83,7 +83,6 @@ class OrderController extends Controller
             return redirect()->to($session->url);
         } elseif ($order->payment_method === 'cash') {
             // Update order status
-            $order->status = 'processing';
             $order->payment_status = 'to be paid';
             $order->save();
 

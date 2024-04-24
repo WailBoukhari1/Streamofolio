@@ -42,6 +42,7 @@ Route::post('/contact', [ContactController::class, 'submit'])->name('contact.sub
 
 Route::middleware(['auth.verify', 'client' , 'banned'])->group(function () {
     Route::get('/account-info', [MainController::class, 'accountInfo'])->name('account-info');
+    Route::post('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
     Route::get('/account-orders', [MainController::class, 'accountOrders'])->name('account-orders');
     Route::get('/account-shipping', [MainController::class, 'accountShipping'])->name('account-shipping');
     Route::post('/shipping', [ShippingController::class, 'store'])->name('store.shipping');
@@ -49,7 +50,6 @@ Route::middleware(['auth.verify', 'client' , 'banned'])->group(function () {
     Route::post('/store-review', [ReviewController::class, 'store'])->name('store.review');
     Route::get('/cart', [MainController::class, 'cart'])->name('cart');
     Route::post('/checkout', [MainController::class, 'checkout'])->name('checkout');
-    Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
     Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
     Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
     Route::delete('/cart/{key}', [CartController::class, 'delete'])->name('cart.delete');
@@ -60,8 +60,6 @@ Route::middleware(['auth.verify', 'client' , 'banned'])->group(function () {
     Route::post('/cancel-order/{order}', [OrderController::class, 'cancelOrder'])->name('cancel.order');
     Route::delete('/delete-order/{order}', [OrderController::class, 'deleteOrder'])->name('delete.order');
     Route::get('/stripe/success', function () {
-        // This is the action to be taken after a successful payment
-        // You can customize this logic based on your application's requirements
         return redirect()->route('thankyou')->with('success', 'Payment successful!');
     })->name('stripe.success');
 });
